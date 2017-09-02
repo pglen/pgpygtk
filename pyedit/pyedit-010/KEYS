@@ -1,0 +1,97 @@
+<c><b><xl>PyEdit Key Assignments</xl></b></c> 
+<w><j>\                                      
+  This is a list of default key assignments for PyEdit. The keys are assigned in keyhand.py and \
+the actions are in acthand.py. Regular keys are added to the buffer.
+</j> </w>                     
+
+<lm><lm>\
+                Left Arrow    		--   	Go left one char
+                Rigt Arrow   	 	--   	Go left one char
+                PgUp         	 	--   	Go up one page
+                PgDn         	 	--    	Go down one page
+                Home         	 	--    	Go to beginning of line
+                End          	 	--  	Go end of line
+                             	    
+                Tab   		   	--	Insert 4 spaces
+                Shift-Tab           	--	Insert insert a real tab
+                Ctrl-A 			--   	Copy selection to Clipboard                           
+                Ctrl-B       	 	--   	Select word
+                Ctrl-C       	 	--   	Copy selection to Clipboard                           
+                Ctrl-D       	 	--   	Unassigned
+                Ctrl-E       	 	--   	Capitalize word
+                Ctrl-F       	 	--   	Find in file or all buffers
+                Ctrl-G       	 	--   	Copy selection to Clipboard                           
+                Ctrl-H       	 	--   	Find /Replace
+                Ctrl-I		   	--   	Copy selection to Clipboard                           
+                Ctrl-J		   	--   	Copy selection to Clipboard                           
+                Ctrl-K       	 	--   	Copy selection to Clipboard                           
+                Ctrl-L       	 	--   	Copy selection to Clipboard                           
+                Ctrl-M       	 	--   	Cut selection to Clipboard           
+                Ctrl-N       	 	--   	Paste from Clipboard
+                Ctrl-O       	 	--   	Open file 
+                Ctrl-P       	 	--   	
+                Ctrl-Q       	 	--   	Quit program (no save, but files are backed up)
+                Ctrl-R       	 	--   	
+                Ctrl-S       	 	--   	Save curren file
+                Ctrl-T       	 	--   	
+                Ctrl-U       	 	--   	Uppercase word
+                Ctrl-V       	 	--   	Paste from Clipboard
+                Ctrl-W       	 	--   	Close current file
+                Ctrl-X       	 	--   	Cut to Clipboard
+                Ctrl-Y       	 	--   	Redo last undo
+                Ctrl-Z       	 	--   	Undo last change
+                	
+                Ctrl Left    	 	--   	Go left one word
+                Ctrl Right         	--      Go left one char
+                Ctrl PgUp    	 	--   	Go up one large page
+                Ctrl PgDn    	 	--   	Go down one large page
+                Ctrl Home    	 	--   	Go to beginning of file
+                Ctrl End     	 	--   	Go end of file
+                	
+                Home Home		--   	Go to begin of page
+                Home Home Home		--   	Go to begin of page
+                	
+                Alt-A			--      Save All buffers
+                Alt-B        	 	--      
+                Alt-C        	 	--      Select current word 
+                Alt-D        	 	--      Delete current line  
+                Alt-E        	 	--      Show edit menue
+                Alt-F        	 	--      Show File Menu
+                Alt-G        	 	--      Goto line
+                Alt-H        	 	--      Help Menu
+                Alt-I 			--      
+                Alt-J 			--      
+                Alt-K        	 	--      Delete (kill) till end of line
+                Alt-M        	 	--      Macros menu
+                Alt-N        	 	--      Next search result
+                Alt-O        	 	--      Open for  Edit (Simplified open file)
+                Alt-P        	 	--      Previous search result
+                Alt-Q        	 	--      
+                Alt-R        	 	--   	Redo
+                Alt-S        	 	--      Search in text
+                Alt-T        	 	--      Find / Replace (taush)
+                Alt-U        	 	--      Undo
+                Alt-V        	 	--      
+                Alt-W        	 	--      Write (Save) Current buffer
+                Alt-X        	 	--      Exit program
+                Alt-Y 			--
+                Alt-Z 			--	Unassigned
+                	
+                Alt-F4			--   	Exit program
+                	
+                F1                  		--   	Help
+                F2 				--   	Help
+                F3				--   	Help
+                F4				--   	Help
+                F5				--   	Previous Match
+                F6				--   	Next Match
+                F7				--   	Start / Stop Record
+                F8				--   	Play Macro
+                F9				--      Toggle spell check
+                F10				--   	Menu
+                F11				--   	Full Screen
+                F12				--   	Cursor Locator                			
+</lm></lm>\
+
+<c>Pres ESC to dismiss this window.</c>
+

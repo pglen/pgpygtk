@@ -1,0 +1,124 @@
+<c><b><xl>PyEdit Key Assignments</xl></b></c> 
+<w><j>\                                      
+  This is a list of default key assignments for PyEdit. The keys are assigned \
+in keyhand.py and \
+the are in actions acthand.py. Regular keys are added to the buffer.
+</j> </w>                     
+\t \t \t \tArrow Left \t    \t--\t \tGo left one char
+\t \t \t \tRight Arrow \t   \t--\t \tGo left one char
+\t \t \t \tPgUp  \t\ \t     \t--\t \tGo up one page
+\t \t \t \tPgDn  \t \t      \t--\t \tGo down one page
+\t \t \t \tHome   \t \t     \t--\t \tGo to beginning of line
+\t \t \t \tEnd   \t \t      \t--\t \tGo end of line
+\t \t \t \t 
+\t \t \t \t [a-z]|[A-Z]|[0-9] \t--\t \tInsert character (key)
+\t \t \t \t Tab   \t \t \t --\t \tInsert 4 spaces up to % 4
+\t \t \t \t Shift-Tab \t \t--\t \tInsert insert a real tab up to %8
+
+\t \t \t \t Ctrl-A \t \t \t--\t \tSelect All                             
+\t \t \t \t Ctrl-B \t  \t \t \--\t \tSelect word
+\t \t \t \t Ctrl-C \t \t--\t \--   	Copy selection to Clipboard
+\t \t \t \t Ctrl-D       	 	--   	
+\t \t \t \t Ctrl-E       	 	--   	Capitalize word
+\t \t \t \t Ctrl-F       	 	--   	Find in file or all buffers
+\t \t \t \t Ctrl-G       	 	--   	Goto next match
+\t \t \t \t Shift-Ctrl-G       	--   	Goto previous match
+\t \t \t \t Ctrl-H       	 	--   	Find / Replace
+\t \t \t \t Ctrl-I		   	--   	Insert countup number
+\t \t \t \t Shift-Ctrl-I            --      Reset and insert countup number
+\t \t \t \t Ctrl-J		   	--   	Toggle coloring
+\t \t \t \t Ctrl-K       	 	--   	Toggle Hex View
+\t \t \t \t Ctrl-L       	 	--   	Lowercase word
+\t \t \t \t Ctrl-M            	--	Toggle autocorrect
+\t \t \t \t Ctrl-N          	-- 	New File
+\t \t \t \t Ctrl-O       	 	--   	Open file 
+\t \t \t \t Ctrl-P       	 	--   	Print (not implemented)
+\t \t \t \t Ctrl-Q       	 	--   	**Quit program
+\t \t \t \t Ctrl-R       	 	--   	***Reverse three words
+\t \t \t \t Ctrl-S       	 	--   	Save current file
+\t \t \t \t Ctrl-T       	 	--      Transpose two words
+\t \t \t \t Ctrl-U       	 	--   	Uppercase word
+\t \t \t \t Ctrl-V       	 	--   	Paste from Clipboard
+\t \t \t \t Ctrl-W       	 	--   	Close current file
+\t \t \t \t Ctrl-X       	 	--   	Cut to Clipboard
+\t \t \t \t Ctrl-Y       	 	--   	Redo last undo
+\t \t \t \t Ctrl-Z       	 	--   	Undo last change
+\t \t \t \t                 	
+\t \t \t \t Ctrl Left    	 	--   	Go left one word
+\t \t \t \t Ctrl Right         	--      Go right one word
+\t \t \t \t Ctrl PgUp    	 	--   	Go up one large page (2x)
+\t \t \t \t Ctrl PgDn    	 	--   	Go down one large page (2x)
+\t \t \t \t Ctrl Home    	 	--   	Go to beginning of file
+\t \t \t \t Ctrl End     	 	--   	Go end of file
+\t \t \t \t 
+\t \t \t \t Altl Left    	 	--   	Go to begin of current word
+\t \t \t \t Alt Right         	--      Go to end of current word
+\t \t \t \t 
+\t \t \t \t Alt Up    	 	--   	Go to next buffer
+\t \t \t \t Alt Down         	--      Go to previous buffer                
+\t \t \t \t 
+\t \t \t \t Alt PgUp    	 	--   	Go to next buffer
+\t \t \t \t Alt PgDn         	--      Go to previous buffer                
+\t \t \t \t 	
+\t \t \t \t Home Home		--   	Go to begin of page (PgUp)
+\t \t \t \t 3x Home		    	--   	Go to begin of file
+\t \t \t \t 	
+\t \t \t \t Alt-A			--      Save All buffers
+\t \t \t \t Alt-B        	 	--      
+\t \t \t \t Alt-C        	 	--      Start column select
+\t \t \t \t Alt-D        	 	--      Delete current line  
+\t \t \t \t Alt-E        	 	--      Show edit Menu
+\t \t \t \t Alt-F        	 	--      Show File Menu
+\t \t \t \t Alt-G        	 	--      Goto line dialog
+\t \t \t \t Alt-H        	 	--      Help Menu
+\t \t \t \t Alt-I 			--      
+\t \t \t \t Alt-J 		    	-- 	           
+\t \t \t \t Alt-K        	 	--      Delete (kill) till end of line
+\t \t \t \t Alt-M        	 	--      Macros menu
+\t \t \t \t Alt-N        	 	--      Next search result
+\t \t \t \t Alt-O        	 	--      Open file (Simplified Dialog)
+\t \t \t \t Alt-P        	 	--      Previous search result
+\t \t \t \t Alt-Q        	 	--      
+\t \t \t \t Alt-R        	 	--   	Redo  
+\t \t \t \t Alt-S        	 	--      Search for text
+\t \t \t \t Alt-T        	 	--      Find / Replace (taush)
+\t \t \t \t Alt-U        	 	--      Undo
+\t \t \t \t Alt-V        	 	--      Select Current Word 
+\t \t \t \t Alt-W        	 	--      Write (Save) Current buffer
+\t \t \t \t Alt-X        	 	--      Exit program
+\t \t \t \t Alt-Y 	            	--	
+\t \t \t \t Alt-Z 			--	
+\t \t \t \t 	                              
+\t \t \t \t Alt-F4		    	--   	Exit program (Use Alt-X)
+\t \t \t \t 	
+\t \t \t \t F1 			--   	Help
+\t \t \t \t F2 		        --   	Dev Help
+\t \t \t \t F3	    	        --   	Keyboard Help
+\t \t \t \t F4			--   	Animate macro
+\t \t \t \t F5			--   	Previous Match
+\t \t \t \t F6			--   	Next Match
+\t \t \t \t F7			--   	Start / Stop Record
+\t \t \t \t F8			--   	Play Macro
+\t \t \t \t F9			--      Toggle spell check
+\t \t \t \t F10			--   	Menu
+\t \t \t \t shift F10           	--	Notebook tab menu
+\t \t \t \t F11			--   	Toggle full Screen
+\t \t \t \t F12			--   	Cursor Locator    
+\t \t \t \t Shift-F12        	--	Show tabs and spaces and 80 column
+\t \t \t \t Ctrl -F12        	--	Show Hex view
+
+Quit program, no save, but files are backed up. (~/pyedit/data)
+*** Ctrl-R     Reverse words around the middle.(a = b becomes b = a)
+
+  Unrecognized key is inserted verbatim into the buffer, and a messahe is printed \
+on the controlling terminal.
+
+  If no action is listed, that key is unassigned.
+    
+<c>Pres ESC to dismiss this window.</c>
+
+
+
+
+
+

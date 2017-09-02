@@ -1,0 +1,45 @@
+                                     README
+
+  This utility was created to quickly display a formatted file. It was 
+embarrassing to wait 25 seconds until the browser starts, just to display
+a welcome screen or a small file.
+
+ The pangview utility is fast, it displays a regular README file in less 
+than a second. However, bear in mind, the graphics engine renders the whole
+file, so large files may take a while le to load. Thus pangview 
+excels on loading 'readme' size files fast.
+
+ The format of the file is friendly, like pango, rich text or html. 
+(but simpler) The parser was written in python, it is easy to extend.
+
+ A quick intro:
+
+     <i> Italic</i>     for italic text
+     <b> Bold </b>      for bold text
+     <r> Red </r>       for red text
+     <xl>Large</xl>     for large text
+     
+Line that starts with a double hash is a comment.
+
+## Comment
+Text in <hid>hidden</hid> tags are hidden from display.
+
+For a full description of the Syntax see the SYNTAX file.
+
+Note that this text displays nicely both on terminals and on the pangview 
+utility,
+
+Command line syntax:
+
+    pangview.py [options] filename
+    
+ There are various options to see the workings of the lexer / parser, 
+like dumping the lexer stack or dumping the parser states. 
+
+ The option -c is to display Table Of Contents pane. Links in the TOC pane
+may be used to control the main view's contents.
+
+This project is in the public domain.
+
+Peter Glen
+

@@ -1,0 +1,103 @@
+                                 README
+                                    
+  This directory contains python bindings for the Linux RTC device. It does 
+not implement all RTC functions, but a useful subset. Especially the subset
+that caters to waking up the computer and querying the CMOS timer.
+
+ Entry points for rtcx:
+ 
+    version         - Get version number
+    bdate           - Get build date
+    rtime           - Read time (seconds from epoch)
+    rtimestr        - Read time as string (format like localtime) 
+    wtime           - Write time (seconds from epoch)
+    ralarm          - Read alarm (seconds from epoch)
+    walarm          - Write alarm (seconds from epoch)
+    alarm           - Set alarm Flag
+    rwake           - Read wake time (SetFlag, ReadyFlag, seconds from epoch)
+    wwake           - Write wake time (SetFlag, ReadyFlag, seconds from epoch)
+    
+ High level entry points for rtc:
+
+    readwake()      - Read wake time (seconds from epoch)
+    writewake()     - Write wake time (seconds from epoch)
+    readwakeflag()  - Read wake flag (SetFlag, ReadyFlag)
+
+To access the rtc from a user space program, the library needs superuser
+privileges. See the README for pyalarm.py which elevates security 
+on demand.
+
+To access the rtc from a user space program, execute:
+
+    sudo chmod o+r /dev/rtc
+
+ This allows a user space program to control the wake timer. The security 
+implications are limited, as the driver enforces its own user space 
+limitations. Additionally, setting the wake up timer of a machine to a time
+when the machine is already on, results in no operation (noop).
+
+If you want to make RTC access more controlled, edit the file:
+
+'/lib/udev/rules.d/50-udev-default.rules', and replace the line:
+ 
+  SUBSYSTEM=="rtc", DRIVERS=="rtc_cmos", SYMLINK+="rtc"
+    
+ with:
+ 
+ SUBSYSTEM=="rtc", DRIVERS=="rtc_cmos", SYMLINK+="rtc", MODE="0664"
+    
+  The above method is only for convenience. If you want additional security, 
+create the group 'rtc' and edit the original line to result the following line:
+
+ SUBSYSTEM=="rtc", DRIVERS=="rtc_cmos", SYMLINK+="rtc", MODE="0660", GROUP="rtc"
+
+Then add the group 'rtc' to the user(s) list of groups. Like this:
+    
+     sudo groupadd rtc
+     sudo usermod -a -G rtc <username>
+     
+ Substitute your (current) user name with <username> Note: Most systems are 
+buggy here, may need to restart GUI/System for the group add to take effect.
+
+ The above file name(s) assume CentOS 6.x. Your system may differ. Please note
+that editing the udev file is not recommended, as it is overwritten on the next
+update. See the install.py in the pyala project for a recommended way to access
+the RTC from user space programs.
+ 
+ 
+ 
+ 
+--------------------------------------------------------------------------
+
+ Testing if your system is wake capable:
+ 
+  1. Execute  'wakemachine.py 10'. This will put your machine in a wake 
+ready state, waking from ten minutes fom now.
+
+  2. (optional) Check if your system registered your intent by 
+executing readwake.py
+  
+  3. Put the system in hybernate / sleep / powerdown mode. 
+(From the GUI or the (GNOME/KDE) Panel)
+  
+  4. Wait ten minutes. If your system starts up, your system is capable of 
+waking. (You may use a shorter time span for this cycle)
+
+  You may check if your system is capable of awakening from:
+  
+    1.)  hybernate
+    2.)  sleep
+    3.)  powerdown
+
+Testing commands:
+
+    su -c 'echo disk > /sys/power/state'
+    su -c 'echo standby > /sys/power/state'
+    su -c 'echo freeze > /sys/power/state'
+        
+  You may check if your system is capable of awakening beyond 24 hours
+or beyond the end of the current 24 hour period. (Most are)
+    
+ Please post your findings ...
+ 
+         

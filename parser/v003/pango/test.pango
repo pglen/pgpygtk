@@ -1,0 +1,8 @@
+Pango Markup
+
+<b> Bold </b>
+<i> Italic </i>
+
+<span foreground="blue" size="100">Blue text</span> is <i>cool</i>!
+
+<span foreground="red" size="100">Red text</span> is <i>un cool</i>!

@@ -1,0 +1,81 @@
+<c><b><xl>Key Assignments</xl></b></c>
+ 
+<w><j>\                                      
+  This is a list of default key assignments for PyEdit. The keys are assigned in keyhand.py and \
+the actions are in acthand.py. Regular keys are added to the buffer.
+</j> </w>                     
+
+<lm><lm>\
+                Left Arrow    	--   	Go left one char
+                Rigt Arrow   	--   	Go left one char
+                PgUp         	--   	Go up one page
+                PgDn         	--    	Go down one page
+                Home         	--    	Go to beginning of line
+                End          	--  	Go end of line
+                             	    
+                Ctrl-A       	--   	Copy selection to Clipboard                           
+                Ctrl-B       	--   	Select word
+                Ctrl-C       	--   	Copy selection to Clipboard                           
+                Ctrl-D       	--   	Unassigned
+                Ctrl-E       	--   	Open for  Edit (Simplified open file)
+                Ctrl-F       	--   	Copy selection to Clipboard                           
+                Ctrl-G       	--   	Copy selection to Clipboard                           
+                Ctrl-H       	--   	Copy selection to Clipboard                           
+                Ctrl-I       	--   	Copy selection to Clipboard                           
+                Ctrl-J       	--   	Copy selection to Clipboard                           
+                Ctrl-K       	--   	Copy selection to Clipboard                           
+                Ctrl-L       	--   	Copy selection to Clipboard                           
+                Ctrl-M       	--   	Cut selection to Clipboard           
+                Ctrl-N       	--   	Paste from Clipboard
+                Ctrl-O       	--   	Open file 
+                Ctrl-P       	--   	Paste From Clipboard
+                Ctrl-Q       	--   	Paste from Clipboard
+                Ctrl-R       	--   	Paste from Clipboard
+                Ctrl-S       	--   	Paste from Clipboard
+                Ctrl-T       	--   	Paste from Clipboard
+                Ctrl-U       	--   	Paste from Clipboard
+                Ctrl-V       	--   	Paste from Clipboard
+                Ctrl-W       	--   	Paste from Clipboard
+                Ctrl-X       	--   	Paste from Clipboard
+                Ctrl-Y       	--   	Paste from Clipboard
+                Ctrl-Z       	--   	Paste from Clipboard
+                	
+                Ctrl Left    	--   	Go left one word
+                Ctrl Right      --      Go left one char
+                Ctrl PgUp    	--   	Go up one large page
+                Ctrl PgDn    	--   	Go down one large page
+                Ctrl Home    	--   	Go to beginning of file
+                Ctrl End     	--   	Go end of file
+                	
+                Home Home    	--   	Go to begin of page
+                Home Home Hom	--   	Go to begin of page
+                	
+                Alt-C        	--      
+                Alt-V        	--   	Select current word
+                	
+                Alt-F4       	--   	Exit program
+                	
+                F1           	--   	Help
+                F2           	--   	Help
+                F3           	--   	Help
+                F4           	--   	Help
+                F5           	--   	Previous Match
+                F6           	--   	Next Match
+                F7           	--   	Start / Stop Record
+                F8           	--   	Play Macro
+                F9           	--   	
+                F10          	--   	Menu
+                F11          	--   	Full Screen
+                F12          	--   	Cursor Locator
+                		
+	
+</lm></lm>\
+
+<c>Pres ESC to dismiss this window.</c>
+
+
+
+
+
+
+

@@ -1,0 +1,11 @@
+[playlist]
+NumberOfEntries=9
+File1=file:///home/peterglen/8g_cruz_copy/(04)%20%5BVernon%20&%20Dacosta%20feat.%20Apple%20Rochez%5D%20As%20Darkness%20Falls%20(Glom%20Remix).mp3
+File2=file:///home/peterglen/8g_cruz_copy/(1957)%20The%20Dell-Vikings%20-%20Come%20Go%20With%20Me.mp3
+File3=file:///home/peterglen/8g_cruz_copy/01.%20Rock%20This%20Party%20(Everybody%20Dance%20Now)-Bob%20Sinclar%20&%20Cutee%20B%20Feat.%20Dollarman,%20Big%20Ali%20&%20Makedah.mp3
+File4=file:///home/peterglen/8g_cruz_copy/1-01%20Rhythm%20of%20Life%20(Albert%20Castillo.mp3
+File5=file:///home/peterglen/8g_cruz_copy/1-02%20Typical%20(Josh%20Harris%20Club%20Mix).mp3
+File6=file:///home/peterglen/8g_cruz_copy/1-03%20Alice%20in%20Wonderland%20(Klubjumper.mp3
+File7=file:///home/peterglen/8g_cruz_copy/1-04%20Don't%20Stop%20(Josh%20Harris%20Club%20Mi.mp3
+File8=file:///home/peterglen/8g_cruz_copy/1-05%20Shut%20Up%20and%20Drive%20(Wideboys%20Clu.mp3
+File9=file:///home/peterglen/8g_cruz_copy/1-06%20Somebody's%20Me%20(Jody%20den%20Broeder.mp3

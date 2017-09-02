@@ -1,0 +1,38 @@
+                                 README
+                                
+ Welcome to the simplest EBOOK reader PYEPUB. It literally reads the books out 
+loud for you.
+
+ The PYEPUB reader was built to fill a gap in the reader landscape, to use text
+to speech as a feature of  convenience. It will  interpret the EPUB format, and
+optionally can be used as a simple HTML reader.
+
+ PYEPUB is simple. It  attempts to follow standards as  accurately as possible. 
+It is meant  to be a text  reader, so the  textual information  of an  EBOOK is 
+at focus. To this end, only a small subset of the HTML  language is implemented,
+only  tags  relevant  to  displaying  text and navigation are dealt  with. Some
+rudimentary imaging support is included,  metaphorically expressed, just enough
+support to display Einstein's Relativity formula images.
+
+ PYEPUB can be driven from the command line. Use the -h option to list command
+switches available. 
+
+Notable switches are: 
+
+        '-a' to read an EBOOK with TTS; 
+        '-f' for starting PYEPUB full screen
+        '-k' to show key assignments
+
+ When loading an EPUB file, PYEPUB will attempt to position the cursor to the 
+place were you where on previous read. This makes it extremely  convenient to 
+use PYEPUB.  
+
+ PYEPUB uses Pygtk for display and Festival for text reader. These packages 
+are widely available, and most distributions install them by default. See 
+the file FESTIVAL for more info on the TTS subsystem.
+
+ PYEPUB is installed on Community Linux with a rudimentary set of free EBOOK
+samples like Einstein's relativity, War and Peace and similar works.
+ 
+ PYEPUB is multi platform, will run everywhere where pygtk runs.
+                                 

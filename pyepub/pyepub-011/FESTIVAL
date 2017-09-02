@@ -1,0 +1,28 @@
+                                  FESTIVAL
+                                
+ PYEPUB uses Festival for text to speech. (TTS) Festival is a giant project 
+in itself, but we are using it as a black-box entity. We drive it through the 
+command line interface. For example:
+
+   echo "Hello" | festival --tts
+   
+ Should say the word 'hello' through your speakers.
+
+ On our test system we used the speaker titled 'voice_kal_diphone'. It sounds 
+decent enough to be of  practical value. To  achieve that, just create a file 
+named '.festivalrc' in your home  directory and paste the following line into 
+it:
+ 
+(set! voice_default 'voice_kal_diphone)
+
+ If you already have a .festivalrc, comment out the older entry like so:
+
+;(set! voice_default 'voice_ked_diphone)
+
+ If you want to restore the default speaker, comment out all the voice_default
+entries or delete the .festivalrc file.
+
+ You may find other voices / speakers for festival. As festival is a giant 
+project, it is beyond the scope of this document to give further instructions.
+
+

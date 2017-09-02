@@ -1,0 +1,9 @@
+                            ChangeLog
+
+12-dec-2015  v009  Ported to autoconf, made m4 pygobj test
+13-dec-2015  v009  Recompiled on a 64 bit machine
+15-dec-2015  v010  Moved images to their own directory
+
+
+
+

@@ -1,0 +1,60 @@
+                                    README
+                                    
+  Welcome to PyAla. This utility imamates the 'at' subsystem in python. The
+major difference is that PyAla has an easy to use graphical user interface.
+
+ The utility works very similar to the 'at' counterpart. The spool file names
+encode the date and time for the alarm, and the spool file itself contains
+instructions what to execute. This assures, that the spool python daemon does 
+not need to read files, so it consumes very little processing power.
+
+ The spool file state is encoded in the filename's first letter. 
+ 
+    'a' stands for alarm phase      (Awaiting)
+    'b' stands for triggerable      (Batched)
+    'c' stands for triggered        (Clocked)
+    'd' stands for finished         (Done)
+    
+ An example spool file name is: d201509151840, This decodes as:
+ 
+            d                   - finished
+            2015 / 09 / 15      - date
+            18 : 40             - time
+    
+ PyAla attempts to be informative and gentle. The alarm pops up a window 
+without taking a focus off of your current window. It can execute any user 
+command and system command, as the PyAla command line is equivalent to the 
+bash command line. 
+
+ For example, one can specify a command line like 'espeak "Hello World"'. This 
+will make the computer say those words at a specified time.  (Cool)
+
+ PyAla can awaken the system from sleep. Not all systems are capable of
+sleeping and awakening. (Today [2015] -- most systems are.)
+
+ The RTC subdirectory contains utilities to test if your system has such 
+capabilities. (readwake.py and wakemachine.py)
+
+ Please see rtc/README for security implications and access control.
+ 
+ PyAla will surrender privileges on entry, only to use it on demand, like
+controlling the RTC. Python before Version 2.7 does not have a os.setresuid()
+function. The missing functionality is ignored, however you receive a 
+warning on installation.
+ 
+  To run PyAla from a script without a pass, add the following line to the
+file /etc/sudoers:
+
+ALL     ALL=(root) NOPASSWD: /usr/bin/PyAla.py
+
+ (or whatever path you installed PyAla.py)
+
+  Sysadmins: another way to access the RTC is to make the RTC device group 
+accessible. See the groupadd.py script for a suggested way to implement it.
+Alternatively, one can edit the UDEV scripts to make the RTC device group 
+accessible.
+
+
+
+
+

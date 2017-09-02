@@ -1,0 +1,27 @@
+[Desktop Entry]
+
+# Edit this file to match your app
+#
+
+Name=TestApp
+GenericName=Test Application
+Comment=Test Application entry
+Exec=TestApp %U
+Terminal=false
+Type=Application
+StartupNotify=true
+MimeType=text/plain;
+Icon=accessories-text-editor
+Categories=GNOME;GTK;Utility;System
+#X-GNOME-DocPath=TestApp/TestApp.xml
+X-GNOME-FullName=Test Application
+X-GNOME-Bugzilla-Bugzilla=GNOME
+X-GNOME-Bugzilla-Product=TestApp
+X-GNOME-Bugzilla-Component=general
+X-GNOME-Bugzilla-Version=2.28.4
+#X-GNOME-Bugzilla-ExtraInfoScript=/usr/libexec/TestApp-2/TestApp-bugreport.sh
+X-Desktop-File-Install-Version=0.15
+
+
+
+

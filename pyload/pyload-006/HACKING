@@ -1,0 +1,21 @@
+                               HACKING
+
+  Pyload install creates a group called 'shutdown'. A user given membership
+in this group is allowed to shut down the computer. PyLoad will set the
+group and group permission of /sys/power/state.
+                           
+   However, if this is undesirable, PyLoad can be run in previledged mode. 
+It will back off its priviledges before the GUI starts, and only elevate to 
+execute the suspend operation and the key monitor operation. When returning
+from suspend, it will immidiately surrender the escalated priviledges.
+
+ To run pyload from a script without a pass, add the following line to the
+file /etc/sudoers:
+
+ALL     ALL=(root) NOPASSWD: /usr/bin/pyload.py
+
+or whatever path you installed pyload.py
+
+ and then run "sudo pyload.py"
+
+

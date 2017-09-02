@@ -1,0 +1,16 @@
+                               HACKING
+
+   PyLoad is run in privileged mode. It will back off its privileges before
+the GUI starts, and only elevates it to execute the suspend operation and the 
+hardware monitor operation. When returning from suspend, it will immediately 
+surrender the escalated privileges.
+
+However, if this is undesirable, you may create a group 'shutdown'. A user 
+given membership in this group is allowed to shut down the computer. 
+Make sure you set the group membership and group access to /sys/power/state.
+
+  Pyload alternate install creates a group called 'shutdown'. See the 
+alt_inst.py for more info.
+ 
+ 
+

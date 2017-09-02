@@ -1,0 +1,59 @@
+                                 README
+                                
+ Welcome to the simplest EBOOK reader PyEPUB. It literally reads the books out 
+loud for you.
+
+ The PyEPUB reader was built to fill a gap in the reader landscape. It uses the
+freely available FESTIVAL text to speech for reading text in human voice.
+ 
+ PyEPUB will interpret the EPUB format, and optionally can be used as a simple 
+HTML reader.
+
+ PyEPUB is simple. It  attempts to follow standards as  accurately as possible. 
+It is meant to be a text reader, so the  textual information of an  EBOOK is 
+at focus. To this end, only a small subset of the HTML  language is implemented,
+only  tags  relevant  to  displaying  text and navigation are dealt  with. Some
+rudimentary imaging support is included, Metaphorically expressed, just enough
+support to display Einstein's Relativity formula images. PyEPUB displays unknown 
+tags as plain text. No content is lost due to complex formatting / markup.
+
+ PyEPUB can be driven from the command line. Use the -h option to list command
+switches available. 
+
+Notable switches are: 
+
+        '-a' to read an EBOOK with TTS; 
+        '-f' for starting PyEPUB full screen
+        '-k' to show key assignments
+
+ When loading an EPUB file, PyEPUB will attempt to position the cursor to the 
+place were you left off on previous read. This makes it extremely  convenient to 
+use PyEPUB.  
+
+ When reading an EPUB file, PyEPUB will allow you to navigate freely with the 
+usual control keys. But navigation can be done with just the space bar. When
+the current document is at its end, it will load the next document as it 
+appears in the table of contents.
+
+ Listing the Author / Title of a document with PyEPUB can be done with the -t
+command line switch. Listing all ebook titles in your home directory can be 
+done like this:
+
+     find ~ -name \*.epub -exec ./pyepub.py -tpn {} \;
+     
+ The above command line will show all ebook file names, authors and titles 
+in your home directory. The -p option prints the file name, the -n option 
+prevents the GUI from starting and the -t option lists the author and title.
+Note the backslash semicolon at the end of line for the exec option. Just as an
+idea starter, you may the output of locate to list all your ebook titles.
+
+ PyEPUB uses PyGTK for display and Festival for text reader. These packages 
+are widely available, and most distributions install them by default. See 
+the file FESTIVAL for more info on the TTS subsystem.
+
+ PyEPUB is installed on Community Linux with a rudimentary set of free EBOOK
+samples like Einstein's relativity, War and Peace and similar works.
+ 
+ PyEPUB is multi platform, will run everywhere where PyGTK runs.
+                                 
+

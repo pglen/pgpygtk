@@ -1,0 +1,403 @@
+#!/usr/bin/env python
+ 
+import signal, os, time
+import gobject, gtk
+import peddoc
+from edmenu import *
+
+ui_info = \
+'''<ui>
+  <menubar name='MenuBar'>
+    <menu action='FileMenu'>
+      <menuitem action='New'/>
+      <menuitem action='Open'/>
+      <menuitem action='Save'/>
+      <menuitem action='SaveAs'/>
+      <separator/>
+      <menuitem action='Quit'/>
+      <menuitem action='Exit'/>
+    </menu>
+    <menu action='PreferencesMenu'>
+      <menu action='ColorMenu'>
+        <menuitem action='Red'/>
+        <menuitem action='Green'/>
+        <menuitem action='Blue'/>
+      </menu>
+      <menu action='ShapeMenu'>
+        <menuitem action='Square'/>
+        <menuitem action='Rectangle'/>
+        <menuitem action='Oval'/>
+      </menu>
+      <menuitem action='Bold'/>
+    </menu>
+    <menu action='HelpMenu'>
+      <menuitem action='About'/>
+    </menu>
+  </menubar>
+
+  <toolbar  name='ToolBar'>
+    <toolitem action='New'/>
+    <toolitem action='Open'/>
+    <toolitem action='Quit'/>
+    <separator/>
+    <toolitem action='Logo'/>
+  </toolbar>
+</ui>'''
+ 
+def scroll(aa, bb):
+    print aa, bb
+
+# -----------------------------------------------------------------------
+# Create document
+
+class edPane(gtk.VPaned):  
+
+    def __init__(self, buff):
+
+        gtk.VPaned.__init__(self)
+        self.set_border_width(5)
+        self.set_position(120)
+        self.vbox = edwin(buff); 
+        self.add2(self.vbox)           
+        self.vbox2 = edwin(buff)
+        self.add1(self.vbox2)   
+        
+# -----------------------------------------------------------------------
+# Create main document widget window with scroll bars
+
+class edwin(gtk.VBox):
+
+    def __init__(self, buff):
+        
+        gtk.VBox.__init__(self)
+
+        area  = peddoc.pedDoc(buff, None, None)        
+        frame = gtk.Frame()
+        frame.add(area)        
+        hbox = gtk.HBox()
+        hbox.pack_start(frame, True, True)
+        hbox.pack_end(area.vscroll, False, False)        
+        self.pack_start(hbox, True, True)
+        self.pack_end(area.hscroll, False, False)
+
+        # Make it visible:
+        self.area = area
+
+# ------------------------------------------------------------------------
+
+def readfile(strx):
+                  
+    f = open(strx)
+    buff = f.read();
+    f.close()
+    return buff
+      
+# ------------------------------------------------------------------------
+#  Define Application Main Window claass
+
+class EdMainWindow():
+
+    def __init__(self, fname, parent, names):
+    
+        register_stock_icons()
+
+        print names       
+        # Create the toplevel window
+        window = gtk.Window(gtk.WINDOW_TOPLEVEL)
+        
+        try:
+            self.set_screen(parent.get_screen())
+        except AttributeError:
+            window.connect('destroy', lambda *w: gtk.main_quit())
+    
+        '''if fname:
+            strx = "PyEdit: ''%s''" % fname
+        else:
+            strx = "PyEdit";'''
+            
+        #window.set_title(strx);
+        window.set_position(gtk.WIN_POS_CENTER)
+
+        #if full:
+        #    self.set_default_size(www, hhh)
+        #else: 
+
+        www = gtk.gdk.screen_width();
+        hhh = gtk.gdk.screen_height();
+        #window.set_default_size(3*www/4, 2*hhh/4)
+
+        merge = gtk.UIManager()
+        window.set_data("ui-manager", merge)
+        merge.insert_action_group(create_action_group(self), 0)
+        window.add_accel_group(merge.get_accel_group())
+        
+        try:
+            mergeid = merge.add_ui_from_string(ui_info)
+        except gobject.GError, msg:
+            print "Building menus failed: %s" % msg
+
+        bar = merge.get_widget("/MenuBar")
+        bar.show()
+
+        table = gtk.Table(2, 4, False)
+        window.add(table)
+
+        table.attach(bar,
+            # X direction #          # Y direction
+            0, 1,                      0, 1,
+            gtk.EXPAND | gtk.FILL,     0,
+            0,                         0);
+
+        bar = merge.get_widget("/ToolBar"); bar.set_tooltips(True)
+        bar.show()
+        table.attach(bar,
+            # X direction #       # Y direction
+            0, 1,                   1, 2,
+            gtk.EXPAND | gtk.FILL,  0,
+            0,                      0)
+        
+        hpaned = gtk.HPaned(); hpaned.set_border_width(5)      
+        
+        tv = self.create_tree()
+        frame2 = gtk.Frame()
+        
+        frame2.add(tv)
+        hpaned.add(frame2)
+        hpaned.set_position(120)
+
+        # Create note for the main window
+        self.note = gtk.Notebook()
+        self.note.connect("focus-tab", self.note_focus_cb)
+        self.note.connect("create-window", self.note_create_cb)
+
+        hpaned.pack2(self.note)
+    
+        # Read in buffers
+        for aa in names:    
+            print "loading file: ", aa
+            try:            
+                buff = readfile(aa)
+            except:
+                print "cannot read file", aa
+                continue
+            
+            vpaned = edPane(buff)
+            self.note.append_page(vpaned)               
+            self.note.set_tab_label_text(vpaned, aa)
+            
+        # Main Pane
+        table.attach(hpaned,
+            # X direction           Y direction
+            0, 1,                   2, 3,
+            gtk.EXPAND | gtk.FILL,  gtk.EXPAND | gtk.FILL,
+            0,                      0)
+        
+        # Create statusbar
+        self.statusbar = gtk.Statusbar()
+        self.statusbar2 = gtk.Statusbar()
+        hpane2 = gtk.HPaned()
+        hpane2.pack2(self.statusbar)
+        hpane2.pack2(self.statusbar2)
+
+        table.attach(hpane2,
+        #table.attach(self.statusbar,
+            # X direction           Y direction
+            0, 1,                   3, 4,
+            gtk.EXPAND | gtk.FILL,  0,
+            0,                      0)
+
+        window.connect("window_state_event", self.update_resize_grip)
+        window.connect("destroy", OnExit)
+       
+        # Futile attempts to grab focus        
+        #window.activate_default() 
+        #vbox2.area.grab_default() 
+        #window.set_default(None) 
+        #vbox2.area.grab_focus()
+        #vbox2.grab_focus() 
+        
+        # Focus to main editor, first doc (idx 0)
+        vcurr = self.note.get_nth_page(0)
+        #vcurr.vbox2.area.grab_focus()
+        window.set_focus(vcurr.vbox.area)
+        window.show_all()
+       
+        # Set the signal handler for 1s tick
+        #signal.signal(signal.SIGALRM, handler)
+        #signal.alarm(1)
+        self.update_statusbar("Initial")
+   
+
+    def create_tree(self):
+        
+        treestore = gtk.TreeStore(str)
+
+        # we'll add some data now - 4 rows with 3 child rows each
+        for parent in range(4):
+          piter = treestore.append(None, ['parent %i' % parent])
+          for child in range(3):
+             treestore.append(piter, ['child %i of parent %i' %
+                                            (child, parent)])
+
+        # create the TreeView using treestore
+        tv = gtk.TreeView(treestore)
+
+        # create a CellRendererText to render the data
+        cell = gtk.CellRendererText()
+
+        # create the TreeViewColumn to display the data
+        tvcolumn = gtk.TreeViewColumn('Functions')
+
+        # add the cell to the tvcolumn and allow it to expand
+        tvcolumn.pack_start(cell, True)
+
+        # set the cell "text" attribute to column 0 - retrieve text
+        # from that column in treestore
+        tvcolumn.add_attribute(cell, 'text', 0)
+        
+        # add tvcolumn to treeview
+        tv.append_column(tvcolumn)
+    
+        return tv
+        
+    def  note_focus_cb(self, tabx):
+        print "note_focus"
+
+    def  note_create_cb(self, tabx):
+        print "note_create"
+
+    def activate_about(self, action):
+        self.update_statusbar("Showing About Dialog")
+        
+        dialog = gtk.AboutDialog()
+        dialog.set_name("PED - Python Editor")
+        dialog.set_version("1.0");
+        dialog.set_comments("\nPython based advanced editor\n");
+        dialog.set_copyright("\302\251 Copyright Peter Glen")
+
+        try:
+	        pixbuf = gtk.gdk.pixbuf_new_from_file('gtk-logo-rgb.gif')
+            #print "loaded pixbuf"
+                dialog.set_logo(pixbuf)
+    
+        except gobject.GError, error:
+            print "Cannot load logo for about dialog";
+
+        #dialog.set_website("")
+        ## Close dialog on user response
+        dialog.connect ("response", lambda d, r: d.destroy())
+        dialog.show()
+
+    def activate_action(self, action):
+        dialog = gtk.MessageDialog(self, gtk.DIALOG_DESTROY_WITH_PARENT,
+            gtk.MESSAGE_INFO, gtk.BUTTONS_CLOSE,
+            'You activated action: "%s" of type "%s"' % (action.get_name(), type(action)))
+        # Close dialog on user response
+        dialog.connect ("response", lambda d, r: d.destroy())
+        dialog.show()
+
+    def activate_quit(self, action):
+        #print "Exit called"        
+        gtk.main_quit()
+
+    def done_dlg():
+        pass
+
+    def activate_radio_action(self, action, current):
+        active = current.get_active()
+        value = current.get_current_value()
+
+        if active:
+            dialog = gtk.MessageDialog(self, gtk.DIALOG_DESTROY_WITH_PARENT,
+                gtk.MESSAGE_INFO, gtk.BUTTONS_CLOSE,
+                "You activated radio action: \"%s\" of type \"%s\".\nCurrent value: %d" %
+                (current.get_name(), type(current), value))
+
+            # Close dialog on user response
+            dialog.connect("response", lambda d, r: d.destroy())
+            dialog.show()
+
+    def update_statusbar(self, strx):
+        # Clear any previous message, underflow is allowed
+        self.statusbar.pop(0)
+        if not strx: 
+            return
+
+        #count = buffer.get_char_count()
+        #iter = buffer.get_iter_at_mark(buffer.get_insert())
+        #row = iter.get_line()
+        #col = iter.get_line_offset()
+        self.statusbar.push(0, strx)
+        self.statusbar2.push(0, strx)
+        #self.statusbar.push(0,
+        #'Cursor at row %d column %d - %d chars in document' % (row, col, count))
+        pass
+
+    def update_resize_grip(self, widget, event):
+        mask = gtk.gdk.WINDOW_STATE_MAXIMIZED | gtk.gdk.WINDOW_STATE_FULLSCREEN
+        if (event.changed_mask & mask):
+            self.statusbar.set_has_resize_grip(not (event.new_window_state & mask))
+
+    
+# It's totally optional to do this, you could just manually insert icons
+# and have them not be themeable, especially if you never expect people
+# to theme your app.
+
+def register_stock_icons():
+    ''' This function registers our custom toolbar icons, so they
+        can be themed.
+    '''
+    items = [('demo-gtk-logo', '_GTK!', 0, 0, '')]
+    # Register our stock items
+    gtk.stock_add(items)
+
+    # Add our custom icon factory to the list of defaults
+    factory = gtk.IconFactory()
+    factory.add_default()
+
+    img_dir = os.path.join(os.path.dirname(__file__), 'images')
+    img_path = os.path.join(img_dir, 'gtk-logo-rgb.gif')
+    #print img_path
+    try:
+        pixbuf = gtk.gdk.pixbuf_new_from_file(img_path)
+        # Register icon to accompany stock item
+     
+        # The gtk-logo-rgb icon has a white background, make it transparent
+        # the call is wrapped to (gboolean, guchar, guchar, guchar)
+        transparent = pixbuf.add_alpha(True, chr(255), chr(255),chr(255))
+        icon_set = gtk.IconSet(transparent)
+        factory.add('demo-gtk-logo', icon_set)
+
+    except gobject.GError, error:
+        #print 'failed to load GTK logo ... trying local'
+        try:
+		    #img_path = os.path.join(img_dir, 'gtk-logo-rgb.gif')
+		    pixbuf = gtk.gdk.pixbuf_new_from_file('gtk-logo-rgb.gif')
+		    # Register icon to accompany stock item
+		    # The gtk-logo-rgb icon has a white background, make it transparent
+		    # the call is wrapped to (gboolean, guchar, guchar, guchar)
+		    transparent = pixbuf.add_alpha(True, chr(255), chr(255),chr(255))
+		    icon_set = gtk.IconSet(transparent)
+		    factory.add('demo-gtk-logo', icon_set)
+
+        except gobject.GError, error:
+            print 'failed to load GTK logo for toolbar'
+
+# Callback for cleanup
+
+def OnExit(arg):
+        #print "OnExit called \"" + arg.get_title() + "\""
+        arg.set_title("Exiting ...")
+        #time.sleep(1);         
+         
+def handler(signum, frame):
+        #print 'Signal handler called with signal', signum
+        signal.alarm(1)
+    
+
+
+
+
+
+
+

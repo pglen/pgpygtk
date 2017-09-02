@@ -1,0 +1,87 @@
+                            SYNTAX
+
+This parser digests formatted text similar to pango in GTK. The objective
+is to have a formatted text display that is simple and fast.
+
+Syntactic elements:
+
+  INIT:
+
+    <i> text </i>       italic text
+    <b> text </b>       bold text
+    <ib> text </ib>     italic bold text *
+    <u> text </u>       underline text 
+    <uu> text </uu>     double underline text *
+    <s> text </s>       strike through text
+
+    <xs> text </xs>     extra small text *
+    <m> text </m>       small text
+    <l> text </l>       large text
+    <xl> text </xl>     extra large text
+    <xxl> text </xxl>   extra extra large text
+
+    <f> text </f>       fixed font text *
+
+    <r> text </r>       red text
+    <g> text </g>       green text
+    <e> text </e>       blue text
+    <#num>text</#>      color spec *
+    
+    <c> text </c>       center text
+    <w> text </w>       wrap text
+    <in> text </in>     indent 
+
+    space, tab, newline operate in their original meaning
+
+  SPAN:
+
+    <span formatting_instructions> text </span>
+    
+    Formatting Instructions:
+    
+        font = name             name of the font
+        face  = name            alias: name of the font
+        size  = num             size of the font
+        color = colorspec       color of the font
+        bgcolor = colorspec     color of the  background
+        fg    = colorspec       alias: color of the font
+        bg    = colorspec       alias: color of the background
+        bold                    bold fort
+        italic                  italic font
+        under                   underlined
+        sub                     subscript
+        super                   superscript
+        wrap                    wrap text (ignore new line)
+        align = alignment       left / right / center
+        alpha = num             alpha blending (0-255)
+
+    when wrap not in effect, space, tab, newline operate in their
+    original meaning
+        
+    IMAGE:
+        
+        <image image_instructions </image>
+        
+        Image instructions:
+
+            file = name           image file name
+            align = alignment   left / right / center
+            width = num         image display width            
+            height = num        image display height
+
+     ESCAPES:
+
+        \x[0-9a-fA-F].          character number in hex \x20 = space
+        \[0-9].                 character number in dec \d32  = space
+
+        \\x or \\d               will display \x or \d
+    
+    LINK:
+
+ Syntax: Text attributes remain in effect if no closing tag applied or
+closing tag is not properly nested.
+
+ Most attributes are recursive, however the text rendering engine cannot 
+do red and blue text at the same time. Thus the conflicting items will 
+be applied as their priority dictates. (usually: the last one prevails)
+

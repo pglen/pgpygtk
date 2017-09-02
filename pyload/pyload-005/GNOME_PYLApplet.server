@@ -1,0 +1,35 @@
+<oaf_info>
+
+<oaf_server iid="OAFIID:GNOME_PYLApplet_Factory" type="exe" location="/usr/bin/pyload.py">
+
+        <oaf_attribute name="repo_ids" type="stringv">
+                <item value="IDL:Bonobo/GenericFactory:1.0"/>
+                <item value="IDL:Bonobo/Unknown:1.0"/>
+        </oaf_attribute>
+        <oaf_attribute name="name" type="string" value="Processor Load and Sleep utility"/>
+        <oaf_attribute name="description" type="string" value="System load display and System Sleep utility"/>
+</oaf_server>
+
+<oaf_server iid="OAFIID:GNOME_PYLApplet"
+            type="factory" 
+            location="OAFIID:GNOME_PYLApplet_Factory">
+
+        <oaf_attribute name="repo_ids" type="stringv">
+                <item value="IDL:GNOME/Vertigo/PanelAppletShell:1.0"/>
+                <item value="IDL:Bonobo/Control:1.0"/>
+                <item value="IDL:Bonobo/Unknown:1.0"/>
+        </oaf_attribute>
+        <oaf_attribute name="name" type="string" value="PyLoad"/>
+        <oaf_attribute name="description" type="string" value="PyLoad Processor Load and System Sleep Utility"/>
+        <oaf_attribute name="panel:category" type="string" value="TOOLS"/>
+        <oaf_attribute name="panel:icon" type="string" value="/usr/share/pyload/monitor.png"/>
+</oaf_server>
+
+</oaf_info>
+
+
+
+
+
+
+

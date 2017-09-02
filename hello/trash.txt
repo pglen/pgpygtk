@@ -1,0 +1,16 @@
+ print gtk.gdk.screen_width(),  gtk.gdk.screen_height()
+
+        desktop = gtk.gdk.get_default_root_window()
+        print desktop
+        #desktop.connect("expose-event", desktop_expose)
+       
+        #mask  = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, False, 300, 300, depth=-1)
+              #print pixbuff.get_size()
+        #print pixbuff.get_bits_per_sample(), pixbuff.get_has_alpha(), \
+        #        pixbuff.get_n_channels(),   gtk.gdk.COLORSPACE_RGB
+        
+        #gc.line_style = gtk.gdk.LINE_ON_OFF_DASH
+        #gc.cap_style = gtk.gdk.CAP_BUTT
+        #gc.cap_style = gtk.gdk.CAP_PROJECTING
+        
+

@@ -1,0 +1,52 @@
+<c><xl> Document Formatting Demo</xl></c>
+
+This is <i>Italic</i> text and <b> Bold </b> text, and this is <b><i> ItalicBold </i></b> text. 
+This is <u>underline</u> text, this is <s>StrikeTrough</s> text. 
+
+This is <m>small <b>Bold</b> and small <i>Italic</i> and small <u>Underline</u> </m> text. 
+(small new line)<m>
+</m>
+This is <r>Red</r> text, this is <g>Green</g> text, this is <e>Blue</e> text.
+This is <l> Large </l> text, this is <m>Small</m> text.
+(regular new line)
+
+This is <l><r> Red Large</r></l> text, this is <l><g>Green Large</g></l> text.
+This is <l><e>Blue Large <b>Bold</b> <i>Italic</i> </e></l> text. 
+(large new line)<l>
+</l>
+This is <l><g> Green Large <b>Bold</b> <u>Underline</u> </g></l> text.
+This is <xl> Extra Large <b>Bold</b> <i>Italic</i> <s>StrikeTrough</s> </xl> text.
+(extra large newline)<xl>
+</xl>
+This is <xxl> Extra Extra Large <b>Bold</b> <i>Italic</i> <s>StrikeTrough</s> </xxl> text.
+(extra extra large newline)<xxl>
+</xxl>
+List:
+
+<in>\
+1.) List item one
+<in>\
+List item One.List item One.List item One.List item One.List item One.
+List item One.List item One.List item One.List item One.List item One.
+</in>\
+ 2.) List item two
+<in>\
+ 2.a) Sub item one
+<in>\
+Sub Item Text Sub Item Text Sub Item Text Sub Item Text Sub Item Text 
+Sub Item Text Sub Item Text Sub Item Text Sub Item Text Sub Item 
+Sub Item Text Sub Item Text Sub Item Text                    
+Sub Item Text Sub Item Text 
+</in>\
+2.b) Sub item
+</in>\
+3.) List item three
+<in>List item three. List item three. List item three. List item three. List item three. 
+</in></in>\
+
+<w>\
+Hello Hello Hello Hello Hello Hello Hello Hello 
+Hello Hello Hello Hello <b>Hello Hello Hello Hello Hello Hello</b> Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello <i>Hello Hello Hello Hello Hello Hello </i>Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello <g>Hello Hello Hello Hello Hello Hello </g>Hello Hello Hello Hello Hello Hello Hello Hello Hello Hello 
+</w>\
+<c>End of document.</c>
+

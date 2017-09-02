@@ -1,0 +1,50 @@
+                                README
+
+  PyLoad is a power saver utility. It displays machine usage statistics, and
+it is able to put the system to sleep. Additionally, when a processor power is
+sufficiently low for a timeout period, it can execute a program.
+
+  Pyload will monitor keyboard activity, mouse activity, disk activity, network
+activity, processor usage. It will put the system to sleep after a specified
+timeout. Finally a power saver that does not kill the system in the middle of a
+download or in the middle of a compile session.
+
+  Pyload can be run as an applet. After installation, PyLoad can be added
+to the Gnome Panel by right clicking on the Panel, and selecting 'Add to Panel'
+From the dialog select 'Pyload' and click on the Add button.
+
+  PyLoad is highly configurable. You may configure idle threshold,
+processor idle timeout, sleep timeout. You may specify program to execute on
+idle keyboard timeout. Processor, disk and network activity is considered idle
+if traffic is less than idle threshold.
+
+ Pyload will successfully put systems to sleep that fail under the standard
+GUI utilities. Perhaps the kernel method became more robust then the older
+alternatives.
+
+ The command line option '-t <minutes>' specifies the sleep timeout in minutes.
+Minutes can be between 1 to 120.
+
+ To install PyLoad, execute 'sudo ./install.py' or 'sudo make install'
+Pyload will run from the system panel as a regular user, elevating privileges
+as needed. PyLoad surrenders privileges on startup, and only elevates it when
+it a accesses the mouse/key/disk/net usage. 
+
+The PyLoad Graph has the following color allocation:
+
+    Dark Gray:      CPU
+    Green:          CPU (Low Pass filtered)
+    Blue:           Network Activity
+    Yellow:         Disk Activity
+
+ The activities are expressed in % to maximum used capacity. This may not be 
+total capacity, as PyLoad adapts to observed maximum capacity.
+
+    See source for details.
+
+ To run pyload from a script without a pass, add the following line to the
+file /etc/sudoers: (this is done by the install script)
+
+ALL     ALL=(root) NOPASSWD: /usr/bin/pyload.py
+
+

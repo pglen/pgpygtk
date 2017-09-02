@@ -1,0 +1,23 @@
+<l>Table of contents</l>
+
+<link name=colors.pango> Link to colors</link> here. 
+<link name=colors.pango> <u>is a regular underlined \
+link (colors.pango)</u></link> here. 
+
+<xl>LARGE text <link name=colors.pango><u>link to colors.pango\
+</u></link> </xl>here. 
+<link name=formats.pango color=green>This is <b>another</b> link in green (formats.pango)</link>
+<link name=formatsx.pango>This is a broken link </link>
+<link name=justify.pango color=#6666ff>
+This is a centered light blue 
+<b>bold</b> link (justify.pango)</link>
+
+<link name=image.pango>\
+This is link in red (broken.pango)</link>
+
+<link name=formats.pango color=#0000aa> This is <i>another</i>
+ link in dark blue with <bg#ffff00> <u>yellow background</u> </bg#> (formats.pango)</link>
+
+
+
+

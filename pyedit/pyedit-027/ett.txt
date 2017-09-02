@@ -1,0 +1,18 @@
+SyntaxError: EOF while scanning triple-quoted string literal
+make: *** [install] Error 1
+[peterglen@cent2 pyala-003]$ Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/site-packages/pyedlib/peddoc.py", line 965, in area_key
+    self.keyh.handle_key(self, area, event)
+  File "/usr/local/lib/python2.7/site-packages/pyedlib/keyhand.py", line 253, in handle_key
+    self.handle_key2(self2, area, event)
+  File "/usr/local/lib/python2.7/site-packages/pyedlib/keyhand.py", line 297, in handle_key2
+    self.handle_reg_key(self2, area, event)
+  File "/usr/local/lib/python2.7/site-packages/pyedlib/keyhand.py", line 404, in handle_reg_key
+    self._handle_key(self2, area, event, self.reg_keytab)
+  File "/usr/local/lib/python2.7/site-packages/pyedlib/keyhand.py", line 438, in _handle_key
+    func(self2)
+  File "/usr/local/lib/python2.7/site-packages/pyedlib/acthand.py", line 471, in end
+    xlen = len(self2.text[yidx])
+IndexError: list index out of range
+
+

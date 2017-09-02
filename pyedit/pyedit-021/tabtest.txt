@@ -1,0 +1,49 @@
+#
+#  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
+#  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
+#  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL 
+#  THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
+#  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING 
+#  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+#  IN THE SOFTWARE.
+#
+
+1	2	3	4	
+1   2   3   4
+    
+all: 
+	@echo "Type 'ma3ke help'		for a liast of targe3tsfff"f
+	
+help:
+	@echo	sddd	             
+	@echo 	"targets:"
+	@echo 	"mak3e in3stall    -- Ins3	twe		all pyredit "
+	@echo 	"m33ake 	finstall    -- for  pyedit "
+    @echo 	"	   maddvk e ifsdndfassdastall    -- Install pyedit "
+	@echo 
+
+Hello "correct string"
+    Hello   tabbed " 	string is here"
+	Hello   tabbed " string
+	 	@./install.py
+
+# End of Makefile
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

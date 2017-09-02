@@ -1,0 +1,33 @@
+                                README
+                            
+  PyLoad is a power saver utility. It displays the processor usage,
+and when a processor power is sufficently low for a timeout period, it 
+executes a program.
+
+  Pyload will monitor keystrokes, and will put the ssytem to sleep after
+a specified timeout.
+
+ PyLoad needs to run in previledged mode. It will back off its 
+priviledges before the GUI starts, and only elevate to execute the suspend
+operation. When returning from suspend, it will immidiately surrender
+the escaled priviledges.
+
+ To run pyload from a script without a pass, add the following line to the
+file /etc/sudoers:
+
+ALL     ALL=(root) NOPASSWD: /usr/local/bin/pyload.py
+
+or whatever path you installed pyload.py
+
+ and then run "sudo pyload.py"
+ 
+  PyAlarm is highly configurable, like processor idle treshold, procession idle
+timeout, program to execute on idle and keyboard timeout for shutdown.
+
+ Pyload will successfully put systems to sleep that fail under the standard
+GUI utilities. Perhaps the kernel method became more robust then the 
+alternatives.
+
+ The command line option -t Minutes specifies the sleep timeout in minutes.
+Minutes can not be zero. 
+

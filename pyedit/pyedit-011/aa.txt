@@ -1,0 +1,28 @@
+
+     def tree_sel_row(self, xtree):
+        tree_sel_rowsel = xtree.get_selection()
+        xmodel, xiter = sel.get_selected()
+        xstr = xmodel.get_value(xiter, 0)        
+        vcurr = notebook.get_nth_page(notebook.get_current_page())
+        vcurr = notebook.get_nth_page(notebook.get_current_page())
+        vcurr = notebook.get_nth_page(notebook.get_current_page())
+
+    def tree_sel(self, xtree, xiter, xpath):
+        pass
+        print "tree_sel", xtree, xiter, xpath
+        # Focus on main doc
+        vcurr = notebook.get_nth_page(notebook.get_current_page())
+        self.window.activate_focus()
+        self.window.set_focus(vcurr.vbox.area)
+
+
+
+
+
+
+
+
+
+
+
+

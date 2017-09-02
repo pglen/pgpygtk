@@ -1,0 +1,126 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE ncx PUBLIC '-//NISO//DTD ncx 2005-1//EN' 
+              'http://www.daisy.org/z3986/2005/ncx-2005-1.dtd'>
+
+<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1" xml:lang="en">
+  <head>
+    <meta content="http://www.gutenberg.org/ebooks/35" name="dtb:uid"/>
+    <meta content="3" name="dtb:depth"/>
+    <meta content="Project Gutenberg EPUB-Maker v0.02 by Marcello Perathoner &lt;webmaster@gutenberg.org&gt;" name="dtb:generator"/>
+    <meta content="0" name="dtb:totalPageCount"/>
+    <meta content="0" name="dtb:maxPageNumber"/>
+  </head>
+  <docTitle>
+    <text>The Time Machine</text>
+  </docTitle>
+  <navMap>
+    <navPoint id="np-1" playOrder="1">
+      <navLabel>
+        <text>I</text>
+      </navLabel>
+      <content src="www.gutenberg.org@files@35@35-0.html#id00008"/>
+    </navPoint>
+    <navPoint id="np-2" playOrder="2">
+      <navLabel>
+        <text>II</text>
+      </navLabel>
+      <content src="www.gutenberg.org@files@35@35-0.html#id00087"/>
+      <navPoint id="np-3" playOrder="3">
+        <navLabel>
+          <text>III</text>
+        </navLabel>
+        <content src="www.gutenberg.org@files@35@35-0.html#id00111"/>
+      </navPoint>
+      <navPoint id="np-4" playOrder="4">
+        <navLabel>
+          <text>IV</text>
+        </navLabel>
+        <content src="www.gutenberg.org@files@35@35-0.html#id00126"/>
+      </navPoint>
+      <navPoint id="np-5" playOrder="5">
+        <navLabel>
+          <text>V</text>
+        </navLabel>
+        <content src="www.gutenberg.org@files@35@35-0.html#id00159"/>
+      </navPoint>
+      <navPoint id="np-6" playOrder="6">
+        <navLabel>
+          <text>VI</text>
+        </navLabel>
+        <content src="www.gutenberg.org@files@35@35-0.html#id00201"/>
+      </navPoint>
+      <navPoint id="np-7" playOrder="7">
+        <navLabel>
+          <text>VII</text>
+        </navLabel>
+        <content src="www.gutenberg.org@files@35@35-0.html#id00215"/>
+      </navPoint>
+      <navPoint id="np-8" playOrder="8">
+        <navLabel>
+          <text>VIII</text>
+        </navLabel>
+        <content src="www.gutenberg.org@files@35@35-0.html#id00232"/>
+      </navPoint>
+      <navPoint id="np-9" playOrder="9">
+        <navLabel>
+          <text>IX</text>
+        </navLabel>
+        <content src="www.gutenberg.org@files@35@35-0.html#id00247"/>
+      </navPoint>
+      <navPoint id="np-10" playOrder="10">
+        <navLabel>
+          <text>X</text>
+        </navLabel>
+        <content src="www.gutenberg.org@files@35@35-0.html#id00265"/>
+      </navPoint>
+      <navPoint id="np-11" playOrder="11">
+        <navLabel>
+          <text>XI</text>
+        </navLabel>
+        <content src="www.gutenberg.org@files@35@35-0.html#id00280"/>
+      </navPoint>
+      <navPoint id="np-12" playOrder="12">
+        <navLabel>
+          <text>XII</text>
+        </navLabel>
+        <content src="www.gutenberg.org@files@35@35-0.html#id00293"/>
+      </navPoint>
+      <navPoint id="np-13" playOrder="13">
+        <navLabel>
+          <text>EPILOGUE</text>
+        </navLabel>
+        <content src="www.gutenberg.org@files@35@35-0.html#id00327"/>
+      </navPoint>
+      <navPoint id="np-14" playOrder="14">
+        <navLabel>
+          <text>*** START: FULL LICENSE ***</text>
+        </navLabel>
+        <content src="www.gutenberg.org@files@35@35-0.html#id00334"/>
+        <navPoint id="np-15" playOrder="15">
+          <navLabel>
+            <text>Section 1. General Terms of Use and Redistributing Project Gutenberg-tm electronic works</text>
+          </navLabel>
+          <content src="www.gutenberg.org@files@35@35-0.html#id00337"/>
+        </navPoint>
+        <navPoint id="np-16" playOrder="16">
+          <navLabel>
+            <text>Section 2. Information about the Mission of Project Gutenberg-tm</text>
+          </navLabel>
+          <content src="www.gutenberg.org@files@35@35-0.html#id00364"/>
+        </navPoint>
+        <navPoint id="np-17" playOrder="17">
+          <navLabel>
+            <text>Section 3. Information about the Project Gutenberg Literary Archive Foundation</text>
+          </navLabel>
+          <content src="www.gutenberg.org@files@35@35-0.html#id00367"/>
+        </navPoint>
+        <navPoint id="np-18" playOrder="18">
+          <navLabel>
+            <text>Section 5. General Information About Project Gutenberg-tm electronic works.</text>
+          </navLabel>
+          <content src="www.gutenberg.org@files@35@35-0.html#id00377"/>
+        </navPoint>
+      </navPoint>
+    </navPoint>
+  </navMap>
+</ncx>

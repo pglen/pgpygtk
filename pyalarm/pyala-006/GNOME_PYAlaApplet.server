@@ -1,0 +1,44 @@
+<oaf_info>
+
+<oaf_server iid="OAFIID:GNOME_PYAlaApplet_Factory" type="exe" location="/usr/bin/pyala_tray.py">
+
+        <oaf_attribute name="repo_ids" type="stringv">
+                <item value="IDL:Bonobo/GenericFactory:1.0"/>
+                <item value="IDL:Bonobo/Unknown:1.0"/>
+        </oaf_attribute>
+        <oaf_attribute name="name" type="string" value="Alarm / Wake up utility"/>
+        <oaf_attribute name="description" type="string" value="Alarm and system Wake Utility"/>
+</oaf_server>
+
+<oaf_server iid="OAFIID:GNOME_PYAlaApplet"
+            type="factory" 
+            location="OAFIID:GNOME_PYAlaApplet_Factory">
+
+        <oaf_attribute name="repo_ids" type="stringv">
+                <item value="IDL:GNOME/Vertigo/PanelAppletShell:1.0"/>
+                <item value="IDL:Bonobo/Control:1.0"/>
+                <item value="IDL:Bonobo/Unknown:1.0"/>
+        </oaf_attribute>
+        <oaf_attribute name="name" type="string" value="PyAlarm"/>
+        <oaf_attribute name="description" type="string" value="Alarm and System Wake Utility"/>
+        <oaf_attribute name="panel:category" type="string" value="TOOLS"/>
+        <oaf_attribute name="panel:icon" type="string" value="/usr/share/pyala/ala.png"/>
+</oaf_server>
+
+</oaf_info>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

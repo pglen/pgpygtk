@@ -1,0 +1,35 @@
+                                    README
+                                    
+  Welcome to PyAla. This utility imatates the 'at' subsystem in python. The
+major difference is that PyAla has an eazy to use graphical user interface.
+
+ The utility works very similar to the 'at' counterpart. The spool filenames
+encode the date and time for the alarm, and the spool file itself contains
+instructions what to execute. This assures, that the spool python daemon does 
+not need to read files, so it consumes very little processiong power.
+
+ The spool file state is encoded in the filename's first letter. 
+ 
+    'a' stands for alarm phase      (Awaiting)
+    'b' stands for triggerable      (Batched)
+    'c' stands for triggered        (Clocked)
+    'd' stands for finished         (Done)
+    
+ An example spool file name is: d201509151840
+ 
+ Decodes as:
+ 
+            d                   - finished
+            2015 / 09 / 15      - date
+            18 : 40             - time
+    
+ PyAla attempt to be informative and gentle. The alarm pops uop a window 
+without taking a focus of your current window. It can execute any system 
+command. The command line is 
+
+ For example, one can specify a command line 'espeak "Hello World"' will make
+the computer say those words at a specified time.
+
+
+
+

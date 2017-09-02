@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<package version="2.0" unique-identifier="isbn" xmlns="http://www.idpf.org/2007/opf">
+  <metadata xmlns:opf="http://www.idpf.org/2007/opf" xmlns:dc="http://purl.org/dc/elements/1.1/">
+      <dc:title>The Time Machine</dc:title>
+      <dc:creator opf:role="aut">H. G. (Herbert George) Wells</dc:creator>
+      <dc:publisher>Gutenberg</dc:publisher>
+      <dc:identifier id="isbn" opf:scheme="isbn">9781406951936</dc:identifier>
+      <dc:language>en</dc:language>
+      <dc:rights></dc:rights>
+      <dc:description></dc:description>
+  </metadata>
+
+  <manifest>
+    <item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml"></item>
+    <item id="coverImg" href="OEBPS/coverImage.png" media-type="image/png"></item>
+    <item id="coverPage" href="OEBPS/coverPage.html" media-type="application/xhtml+xml"></item>
+    <item id="part0" href="OEBPS/part0.html" media-type="application/xhtml+xml"></item>
+    <item id="part1" href="OEBPS/part1.html" media-type="application/xhtml+xml"></item>
+    <item id="part2" href="OEBPS/part2.html" media-type="application/xhtml+xml"></item>
+    <item id="part3" href="OEBPS/part3.html" media-type="application/xhtml+xml"></item>
+    <item id="part4" href="OEBPS/part4.html" media-type="application/xhtml+xml"></item>
+    <item id="part5" href="OEBPS/part5.html" media-type="application/xhtml+xml"></item>
+    <item id="part6" href="OEBPS/part6.html" media-type="application/xhtml+xml"></item>
+    <item id="part7" href="OEBPS/part7.html" media-type="application/xhtml+xml"></item>
+    <item id="part8" href="OEBPS/part8.html" media-type="application/xhtml+xml"></item>
+    <item id="part9" href="OEBPS/part9.html" media-type="application/xhtml+xml"></item>
+    <item id="part10" href="OEBPS/part10.html" media-type="application/xhtml+xml"></item>
+    <item id="part11" href="OEBPS/part11.html" media-type="application/xhtml+xml"></item>
+    <item id="part12" href="OEBPS/part12.html" media-type="application/xhtml+xml"></item>
+  </manifest>
+
+  <spine toc="ncx">
+    <itemref linear="yes" idref="coverPage"></itemref>
+    <itemref linear="yes" idref="part0"></itemref>
+    <itemref linear="yes" idref="part1"></itemref>
+    <itemref linear="yes" idref="part2"></itemref>
+    <itemref linear="yes" idref="part3"></itemref>
+    <itemref linear="yes" idref="part4"></itemref>
+    <itemref linear="yes" idref="part5"></itemref>
+    <itemref linear="yes" idref="part6"></itemref>
+    <itemref linear="yes" idref="part7"></itemref>
+    <itemref linear="yes" idref="part8"></itemref>
+    <itemref linear="yes" idref="part9"></itemref>
+    <itemref linear="yes" idref="part10"></itemref>
+    <itemref linear="yes" idref="part11"></itemref>
+    <itemref linear="yes" idref="part12"></itemref>
+  </spine>
+
+  <guide>
+    <reference type="cover" title="Cover Page" href="OEBPS/coverPage.html"></reference>
+  </guide>
+</package>
