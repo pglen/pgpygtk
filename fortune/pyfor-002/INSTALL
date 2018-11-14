@@ -1,0 +1,33 @@
+                        INSTALL
+                        
+ Execute sudo ./install.py
+ 
+  If you do not have admin access, you may install the utility in any
+directory, and use the '-d' option to point to the fortune files.
+
+ Examples:
+ 
+    ./pyfortune.py -d datfiles
+
+  ... or ...
+    
+    cp -a datfiles ~/
+    cp pyfortune.py ~/bin
+    pyfortune.py -d ~/datfiles
+    
+ This is a contrived example, but you get the idea.
+ 
+ To dispal a nice fortune at termnal startup, add the following line to
+your ~/.bashrc file:
+
+pyfortune.py 
+
+ Have fun.
+ 
+ Peter Glen
+ 
+    
+ 
+ 
+
+
