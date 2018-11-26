@@ -5,7 +5,7 @@ encryption algorythm is bluepoint2. The server can be fully administered from
 the protocol side.
 
  PyServ contains protocol level encryption, which can be switched on by
-instructing the server to use an encryption key. The encryption key can be
+ instructing the server to use an encryption key. The encryption key can be
 specified directly, or it can be specified by key name. In case of a named key
 a set of preloaded keys need to be specified on initialization.
 
@@ -26,7 +26,7 @@ the uini command returns an error.
 The keys can be initialized by the kini command. The server only accepts the 
 kini from the loopback interface. Once the initial key is created, the kini command 
 returns an error.
-
+ p
  After the initial user and initial key has been created, the server can be 
 securely administered via the protocol interface. Make sure you switch on your 
 initial encryption key via the xkey command.
@@ -39,4 +39,14 @@ parameters change. The user created by uini cannot be deleted.
  Protocol usage. The protocol has most of the commands of a traditional file
 transfer protocol. See client source examples for more info. The help facility 
 of PyServ is able to deliver useful information as well.
+
+Versioning.
+
+  The 'C' module has a date API, that is generated automatically. Use it to
+distinguish algorythm versioning.
+  
+    print( "Builddate: ",  bluepy.builddate())
+
+  
+
 

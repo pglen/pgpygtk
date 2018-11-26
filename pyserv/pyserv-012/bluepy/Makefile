@@ -1,34 +1,38 @@
 # ------------------------------------------------------------------------
 # Makefile for bluepoint2 python module
 #
-# Simplified for CentOS compile. Edit path for your system.
+# a.) Simplified for CentOS compile. Edit path for your system.
+# b.) Rebilding on MSYS2
+#
 
 COPT =  -DNDEBUG -m32 -g -O3 -Wall -Wstrict-prototypes -fPIC -DMAJOR_VERSION=1 \
     -DMS_WIN32 -DMINOR_VERSION=0 -I/mingw32/include/python2.7 
                 
-#COPT =  -DNDEBUG -g -O3 -Wall -Wstrict-prototypes -fPIC -DMAJOR_VERSION=1 \
-#    -DMINOR_VERSION=0 -I/mingw32/include/python2.7 
-                
 # This way inference rules can be used.                
 CFLAGS=${COPT}
 
-# Add targets here
-TARGS = bluepoint2.o bluepy.o
-
 # ------------------------------------------------------------------------
 
-all:  bluepy.so
+all:
+	python3 buildme.py
 
-#bluepoint2.o:
-#	gcc -shared  -c  bluepoint2.c
-
-bluepy.so:  ${TARGS} Makefile                                            
-	./bdate.py > bdate.h
-	gcc -shared   ${TARGS}  -lpython2.7 -o bluepy.so    
+test: all
+	@./bluetest.py >cc
+	@./bluefile.py -e -f -p 1111 Makefile aa
+	@./bluefile.py -d -f -p 1111 aa bb
+	@echo Diff should be silent
+	@diff Makefile bb
+	@rm -f aa bb cc
 
 clean:
 	rm -f *.o
 	rm -f *.so
+	rm -f *.pyd
+	rm -f *.dll
+
+
+
+
 
 
 

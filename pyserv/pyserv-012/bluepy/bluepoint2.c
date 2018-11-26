@@ -458,7 +458,8 @@ static unsigned char buff[2048];
 char    *bluepoint2_dumphex(char *str, int len)
 
 {
-    buff[0] = 0;  int loop = 0, pos = 0;
+    buff[0] = 0;  int loop = 0;
+    unsigned int pos = 0;
 
     if(verbose)
         {
@@ -490,8 +491,9 @@ char    *bluepoint2_dumphex(char *str, int len)
 char    *bluepoint2_dump(char *str, int len)
 
 {
-    buff[0] = 0;  int loop = 0, pos = 0;
-
+    buff[0] = 0;  int loop = 0;
+    unsigned int pos = 0;
+    
     if(verbose)
         {
         printf("bluepoint2_dump str=%p len=%d ", str, len);
@@ -522,7 +524,8 @@ char    *bluepoint2_dump(char *str, int len)
 char    *bluepoint2_undump(char *str, int len)
 
 {
-    buff[0] = 0;  int loop = 0, pos = 0;
+    buff[0] = 0;  int loop = 0;
+    unsigned int pos = 0;
     unsigned int val = 0;
 
     if(verbose)
@@ -602,6 +605,7 @@ char    *bluepoint2_fromhex(char *str, int len, char *out, int *olen)
     *olen = pos;
     return(out);
 }
+
 
 
 

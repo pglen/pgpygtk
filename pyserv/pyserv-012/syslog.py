@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import os, sys, getopt, signal, select, string, time, stat # syslog, 
+import os, sys, getopt, signal, select, string, time, stat 
 
 LOG_EMERG, LOG_ALERT, LOG_CRIT, LOG_ERR, LOG_WARNING, \
 LOG_NOTICE, LOG_INFO, LOG_DEBUG = range(8)
@@ -24,7 +24,7 @@ LOG_NDELAY = 8
 LOG_NOWAIT = 16
 
 def syslog(message):
-    print (message)
+    #print (message)
     pass
 
 #def syslog(priority, message):
@@ -40,5 +40,7 @@ def setlogmask(maskpri):
     pass
     
 #EOF
+
+
 
 

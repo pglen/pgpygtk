@@ -1,9 +1,42 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import os, sys, getopt, signal, select, string, time, struct 
-import socket, threading, SocketServer, traceback, random, syslog
+import socket, threading, socketserver, traceback, random #, syslog
 
-import pycrypt, bluepy.bluepy
+sys.path.append('..')
+#import bluepy.bluepy
+
+# ------------------------------------------------------------------------
+# A more informative exception print 
+ 
+def put_debug2(xstr):
+    try:
+        if os.isatty(sys.stdout.fileno()):
+            print( xstr)
+        else:
+            syslog.syslog(xstr)
+    except:
+        print( "Failed on debug output.")
+        print( sys.exc_info())
+
+def put_exception2(xstr):
+
+    cumm = xstr + " "
+    a,b,c = sys.exc_info()
+    if a != None:
+        cumm += str(a) + " " + str(b) + "\n"
+        try:
+            #cumm += str(traceback.format_tb(c, 10))
+            ttt = traceback.extract_tb(c)
+            for aa in ttt: 
+                cumm += "File: " + os.path.basename(aa[0]) + \
+                        " Line: " + str(aa[1]) + "\n" +  \
+                    "   Context: " + aa[2] + " -> " + aa[3] + "\n"
+        except:
+            print( "Could not print trace stack. ", sys.exc_info())
+            
+    put_debug2(cumm)    
+    #syslog.syslog("%s %s %s" % (xstr, a, b))
 
 # Walk thru the server (chunk) state machine 
 # Chunk is our special buffer (short [16 bit])len + (str)message
@@ -11,47 +44,61 @@ import pycrypt, bluepy.bluepy
 # 2. Get data                                        
 # 3. Reply
 # Set alarm after every transaction, so timeout is monitored
+#
 # Transmission needs to be 16 bit clean
-
-pgdebug = 0
 
 class DataHandler():
     
-    def __init__(self):
-        #print  "DataHandler __init__"
+    def __init__(self, pgdebug = 0):
+        #print(  "DataHandler __init__")
         self.src = None; self.tout = None
         self.timeout = 5
+        self.pgdebug = pgdebug
         
     def handler_timeout(self):
         self.tout.cancel()
-        if pgdebug > 0:
-            print "handler_timeout %s" % self.name 
-            #print self.par.client_address, self.par.server.socket
+        if self.pgdebug > 0:
+            print( "handler_timeout %s" % self.name )
+            #print( self.par.client_address, self.par.server.socket)
         # Force closing connection
-        self.par.request.send("Timeout occured, disconnecting.\n")
+        self.par.request.send("Timeout occured, disconnecting.\n".encode("cp437"))
         self.par.request.shutdown(socket.SHUT_RDWR)
     
     def putdata(self, response, key, rand = True):
-        response2 = response
-        if  key != "":
-            if rand:
-                response +=  " " * random.randint(0, 20)
-            response2 = bluepy.bluepy.encrypt(response, key)
-            #bluepy.bluepy.destroy(response)
-            
-        if self.tout: self.tout.cancel()
-        self.tout = threading.Timer(self.timeout, self.handler_timeout)
-        self.tout.start()
-        # Send out our special buffer (short)len + (str)message
-        strx = struct.pack("!h", len(response2)) + response2
-        ret = self.par.request.send(strx)
+        if self.pgdebug > 7:
+            print ("putdata '" + response + "'")
+        try:
+            response2 = response.encode("cp437")
+            if  key != "":
+                pass
+                #if rand:
+                #    response +=  " " * random.randint(0, 20)
+                #response2 = bluepy.bluepy.encrypt(response, key)
+                #response2 = response
+                #bluepy.bluepy.destroy(response)
+                
+            if self.tout: self.tout.cancel()
+            #self.tout = threading.Timer(self.timeout, self.handler_timeout)
+            #self.tout.start()
+            # Send out our special buffer (short)len + (str)message
+            strx = struct.pack("!h", len(response2)) + response2
+            #if self.pgdebug > 9:
+            #    print ("sending: '", strx ) # + strx.decode("cp437") + "'")
+            ret = self.par.request.send(strx)
+        except:
+            put_exception2("Put Data:")
         return ret
           
     def getdata(self, amount):
+        #if self.pgdebug > 7:
+        #    print("getting data:", amount)
         if self.tout: self.tout.cancel()
-        self.tout = threading.Timer(self.timeout, self.handler_timeout)
-        self.tout.start()
-        return self.par.request.recv(amount)
+        #self.tout = threading.Timer(self.timeout, self.handler_timeout)
+        #self.tout.start()
+        sss = self.par.request.recv(amount)
+        #if self.pgdebug > 8:
+        #    print("got len", amount, "got data:", sss)
+        return sss.decode("cp437")
 
     # Where the outside stimulus comes in ...
     # State 0 - initial => State 1 - len arrived => State 2 data coming 
@@ -59,37 +106,43 @@ class DataHandler():
     
     def handle_one(self, par):    
         self.par = par
-        cur_thread = threading.currentThread()
-        self.name = cur_thread.getName()
-        state = 0; xlen = 0; data = ""; ldata = ""
-        while 1:
-            if state == 0:
-                xdata = self.getdata(max(2-len(ldata), 0))
-                if len(xdata) == 0: break
-                ldata += xdata    
-                if len(ldata) == 2:
-                    state = 1; 
-                    xlen = struct.unpack("!h", ldata)[0]
-                    if pgdebug > 7:
-                        print "got len =", xlen
-            elif state == 1:
-                data2 = self.getdata(max(xlen-len(data), 0))
-                if len(data2) == 0:
+        try:
+            cur_thread = threading.currentThread()
+            self.name = cur_thread.getName()
+            state = 0; xlen = 0; data = ""; ldata = ""
+            while 1:
+                if state == 0:
+                    xdata = self.getdata(max(2-len(ldata), 0))
+                    if len(xdata) == 0: break
+                    ldata += xdata
+                    if len(ldata) == 2:
+                        state = 1; 
+                        xlen = struct.unpack("!h", ldata.encode("cp437"))
+                        #if self.pgdebug > 7:
+                        #    print( "db got len =", xlen)
+                elif state == 1:
+                    data2 = self.getdata(max(xlen[0]-len(data), 0))
+                    if len(data2) == 0:
+                        break
+                    data += data2
+                    #if self.pgdebug > 7:
+                    #    print( "db got data, len =", len(data2))
+                    if len(data) == xlen:
+                        state = 3
+                elif state == 3:
+                    # Done, return buffer
+                    state = 0
                     break
-                data += data2
-                if pgdebug > 7:
-                    print "got data, len =", len(data2)
-                if len(data) == xlen:
-                    state = 3
-            elif state == 3:
-                # Done, return buffer
-                state = 0
-                break
-            else:
-                if pgdebug > 0:
-                    print "Unkown state"
-        if self.tout: self.tout.cancel()
-        return data
+                else:
+                    if self.pgdebug > 0:
+                        print( "Unkown state")
+            if self.tout: self.tout.cancel()
+        except:
+            put_exception2("Handshake:")
+        if self.pgdebug > 8:
+            print("got data: '" + data + "'")
+                
+        return data #.decode("cp437")
 
 # Create a class with the needed members to send / recv
 # This way we can call the same routines as the SockServer class
@@ -99,6 +152,14 @@ class xHandler():
     def __init__(self, socket):
         self.request = socket
         pass
+
+
+
+
+
+
+
+
 
 
 

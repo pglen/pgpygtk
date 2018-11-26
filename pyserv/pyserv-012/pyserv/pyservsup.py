@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import os, sys, string, time #, crypt
+import os, sys, string, time, bcrypt, traceback
 
 # Globals and configurables
 
@@ -14,12 +14,12 @@ keyfile = ".pyserv/keys.secret"
 def put_debug(xstr):
     try:
         if os.isatty(sys.stdout.fileno()):
-            print xstr
+            print( xstr)
         else:
             syslog.syslog(xstr)
     except:
-        print "Failed on debug output."
-        print sys.exc_info()
+        print( "Failed on debug output.")
+        print( sys.exc_info())
 
 def put_exception(xstr):
 
@@ -35,7 +35,7 @@ def put_exception(xstr):
                         " Line: " + str(aa[1]) + "\n" +  \
                     "   Context: " + aa[2] + " -> " + aa[3] + "\n"
         except:
-            print "Could not print trace stack. ", sys.exc_info()
+            print( "Could not print trace stack. ", sys.exc_info())
             
     put_debug(cumm)    
     #syslog.syslog("%s %s %s" % (xstr, a, b))
@@ -125,7 +125,6 @@ def chup(strx):
 #        2 for duplicate
 #        4 for key deleted
 
-
 def kauth(namex, keyx, kadd = False):
 
     fields = ""; dup = False; ret = 0, ""
@@ -187,9 +186,13 @@ def kauth(namex, keyx, kadd = False):
                     pass
                 else:
                     fh3.write(line)
+            fh3.close()
             # Rename       
             try:
                 os.remove(keyfile)
+            except:
+                ret = -1, "Cannot remove from " + pname3 
+            try:
                 os.rename(pname3, passfile)
             except:
                 ret = -1, "Cannot rename from " + pname3 
@@ -220,7 +223,6 @@ def kauth(namex, keyx, kadd = False):
 def auth(userx, upass, uadd = False):
 
     fields = ""; dup = False
-    upass2 = crypt.crypt(upass)
     try:
         fh = open(passfile, "r")
     except:
@@ -235,8 +237,9 @@ def auth(userx, upass, uadd = False):
         if fields[0] == userx:
             dup = True
             break
-    if not dup:
         fh.close()
+                
+    if not dup:
         if uadd == 1:
             try:
                 fh2 = open(passfile, "r+")
@@ -247,7 +250,9 @@ def auth(userx, upass, uadd = False):
                     ret = 0, "Cannot open " + passfile + " for writing"
                     return ret
             fh2.seek(0, os.SEEK_END)
-            fh2.write(userx + "," + upass2 + "\n")                
+            upass2 = bcrypt.hashpw(upass.encode("cp437"), bcrypt.gensalt())
+            print ("upass2", upass2)
+            fh2.write(userx + "," + upass2.decode("cp437") + "\n")                
             fh2.close()
             ret = 2, "Saved pass"
         else:
@@ -274,9 +279,13 @@ def auth(userx, upass, uadd = False):
                     pass
                 else:
                     fh3.write(line)
+            fh3.close()        
             # Rename       
             try:
                 os.remove(passfile)
+            except:
+                ret = 0, "Cannot remove " + passfile 
+            try:
                 os.rename(pname3, passfile)
             except:
                 ret = 0, "Cannot rename from " + pname3 
@@ -286,16 +295,22 @@ def auth(userx, upass, uadd = False):
             else:
                 ret = 0, "User NOT deleted (possibly uini user)"
         else:
-            c2 = crypt.crypt(upass, fields[1])
-            if c2 == fields[1].rstrip():
+            c2 = bcrypt.hashpw(upass.encode("cp437"), fields[1].encode("cp437"))
+            #print ("upass", c2, "org:", fields[1].rstrip().encode("cp437"))
+            if c2 == fields[1].rstrip().encode("cp437"):
+                print ("Auth OK")
                 ret = 1, "Authenicated"
             else:
                 ret = 0, "Bad User or Bad Pass"
-    fh.close()
     return ret
 
 if __name__ == '__main__':
-    print "test"
+    print( "test")
     
+
+
+
+
+
 
 

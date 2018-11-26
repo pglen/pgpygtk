@@ -1,9 +1,12 @@
 #!/usr/bin/env python
 
 import os, sys, getopt, signal, select, string, time, stat 
-import pyservsup, pycrypt, bluepy.bluepy
 
-import syslog
+sys.path.append('..')
+import pycrypt, syslog
+import bluepy.bluepy
+
+import pyservsup
 
 # Globals
 
@@ -68,11 +71,11 @@ def get_ls_func(self, strx):
                     # Escape spaces
                     sss += pyservsup.escape(aa) + " "
             except:
-                print "Cannot stat ", aaa
+                print( "Cannot stat ", aaa)
                 
         response = "OK " + sss
     except:
-        #pyservsup.put_exception("ls ")
+        pyservsup.put_exception("ls ")
         response = "ERR No such directory"
     self.resp.datahandler.putdata(response, self.resp.ekey)
     
@@ -90,6 +93,7 @@ def get_fget_func(self, strx):
         flen = os.stat(dname2)[stat.ST_SIZE]
         fh = open(dname2)
     except:
+        pyservsup.put_exception("cd")
         response = "ERR Cannot open file '" + dname + "'"
         self.resp.datahandler.putdata(response, self.resp.ekey)
         return
@@ -106,7 +110,7 @@ def get_fget_func(self, strx):
     # Lof and set state to IDLE
     xstr = "Sent file: '" + dname + \
                 "' " + str(flen) + " bytes"
-    print xstr
+    print( xstr)
     syslog.syslog(xstr)
     
 def get_ekey_func(self, strx):
@@ -129,7 +133,7 @@ def get_xkey_func(self, strx):
         # Lookup if it is a named key:
         retx = pyservsup.kauth(strx[1], "", 0)
         if retx[0] == 1:
-            print "key set", "'" + retx[1] + "'"
+            print( "key set", "'" + retx[1] + "'")
             self.resp.ekey = retx[1]   
             response = "OK " +  "Key Set"
         else:     
@@ -146,6 +150,10 @@ def get_pwd_func(self, strx):
     
 def get_ver_func(self, strx):
     response = "OK Version " + str(version)
+    self.resp.datahandler.putdata(response, self.resp.ekey)
+
+def get_hello_func(self, strx):
+    response = "OK Hello"
     self.resp.datahandler.putdata(response, self.resp.ekey)
 
 def get_cd_func(self, strx):
@@ -179,7 +187,8 @@ def get_stat_func(self, strx):
             aaa += str(aa) + " "
         response = "OK " + fname + aaa
     except OSError:
-        print sys.exc_info()
+        pyservsup.put_exception("cd")
+        print( sys.exc_info())
         response = "ERR " + str(sys.exc_info()[1] )
     except:
         response = "ERR Must specify file name"
@@ -197,7 +206,7 @@ def get_pass_func(self, strx):
     # Make sure there is a trace of the attempt
     stry = "Logon  '" + self.resp.user + "' " + \
                 str(self.resp.client_address) 
-    print stry        
+    print( stry        )
     syslog.syslog(stry)
     if not os.path.isfile(pyservsup.passfile):
         ret = "ERR " + "No initial users yet"
@@ -206,13 +215,13 @@ def get_pass_func(self, strx):
         if xret[0] == 3:
             ret = "ERR No such user"
         elif xret[0] == 1:
-            self.resp.passwd = bluepy.bluepy.encrypt(strx[1], "1234")
+            #self.resp.passwd = bluepy.bluepy.encrypt(strx[1], "1234")
             ret = "OK Authenticated"
             self.curr_state = in_idle
         else:
             stry = "Error on logon  '" + self.resp.user + "' " + \
                     str(self.resp.client_address) 
-            print stry        
+            print( stry        )
             syslog.syslog(stry)
             ret = "ERR " + xret[1]
     self.resp.datahandler.putdata(ret, self.resp.ekey)
@@ -260,7 +269,7 @@ def get_uini_func(self, strx):
 def get_kini_func(self, strx):
     # Test for local client
     if str(self.resp.client_address[0]) != "127.0.0.1":
-        response = "ERR must connect from loopback for uni"
+        response = "ERR must connect from loopback for keyini"
     elif len(strx) < 3:
         response = "ERR must specify key_name and key_value"
     else:
@@ -369,12 +378,12 @@ def get_data_func(self, strx):
         return
     xstr = "Received file: '" + self.resp.fname + \
                 "' " + str(self.resp.dlen) + " bytes"
-    print xstr
+    print( xstr)
     syslog.syslog(xstr)
     self.resp.datahandler.putdata("OK Got data", self.resp.ekey)
             
 def get_help_func(self, strx):
-    #print "get_help_func", strx
+    #print( "get_help_func", strx)
     hstr = "OK "
     if len(strx) == 1:
         for aa in state_table:
@@ -391,7 +400,7 @@ def get_help_func(self, strx):
     
 # Also stop timeouts
 def get_exit_func(self, strx):
-    #print "get_exit_func", strx
+    #print( "get_exit_func", strx)
     self.resp.datahandler.putdata("OK Bye", self.resp.ekey)
     
     # Cancel **after** sending bye
@@ -428,6 +437,7 @@ kini_help = "Usage: kini key_name key_pass -- Create initial key. " \
 udel_help = "Usage: udel user_name user_pass -- Delete user"
 data_help = "Usage: data datalen -- Specify length of file to follow"
 vers_help = "Usage: ver -- Get protocol version. alias: vers"
+hello_help = "Usage: hello -- Say Hello - test connectivity."
 quit_help = "Usage: quit -- Terminate connection. alias: exit"
 help_help = "Usage: help [command] -- Offer help on command"
 lsls_help = "Usage: ls [dir] -- List files in dir"
@@ -471,6 +481,7 @@ state_table = [
             ("udel",    auth_in,    none_in,    get_udel_func,  udel_help),
             ("ver",     all_in,     none_in,    get_ver_func,   vers_help),
             ("vers",    all_in,     none_in,    get_ver_func,   vers_help),
+            ("hello",   initial,    none_in,    get_hello_func, hello_help),
             ("quit",    all_in,     none_in,    get_exit_func,  quit_help),
             ("exit",    all_in,     none_in,    get_exit_func,  quit_help),
             ("help",    all_in,     none_in,    get_help_func,  help_help),
@@ -505,7 +516,8 @@ class StateHandler():
         try:
             self.run_state2(strx)
         except:
-            print sys.exc_info()
+            pyservsup.put_exception("run state:")
+            #print( sys.exc_info())
             
     def run_state2(self, strx):
         got = False; ret = True 
@@ -518,7 +530,7 @@ class StateHandler():
             
         comx = strx.split()
         if self.verbose:
-            print "Com:", comx, "State =", self.curr_state
+            print( "Com:", comx, "State =", self.curr_state)
         
         # Scan the state table, execute actions, set new states
         for aa in state_table:
@@ -541,17 +553,11 @@ class StateHandler():
                     
         # Not found in the state table for the current state, complain
         if not got: 
-            print "Invalid or out of sequence command:", strx
-            self.resp.datahandler.putdata(\
-              "ERR Invalid or Out of Sequence command " + strx, self.resp.ekey)
+            print( "Invalid or out of sequence command:", strx)
+            sss =  "ERR Invalid or Out of Sequence command " + strx
+            self.resp.datahandler.putdata(sss.encode("cp437"), self.resp.ekey)
             # Do not quit, just signal the error
             ret = False
         return ret          
     
-
-
-
-
-
-
-
+# EOF
