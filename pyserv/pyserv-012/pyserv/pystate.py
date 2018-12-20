@@ -3,6 +3,8 @@
 import os, sys, getopt, signal, select, string, time, stat 
 
 sys.path.append('..')
+sys.path.append('../bluepy')
+
 import pycrypt, syslog
 import bluepy.bluepy
 

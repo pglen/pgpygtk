@@ -30,7 +30,7 @@ def phelp():
     print( "            -v        - Verbose")
     print( "            -q        - Quiet")
     print( "            -h        - Help")
-    print()
+    print( " Needs debug level or verbose to have any output.")
     sys.exit(0)
 
 def pversion():
@@ -83,3 +83,4 @@ if __name__ == '__main__':
 
 
 # EOF
+

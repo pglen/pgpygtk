@@ -4,11 +4,11 @@ import os, sys, getopt, signal, select, string, time
 import struct, stat, base64, random
 
 sys.path.append('..')
+sys.path.append('../bluepy')
 
 import bluepy.bluepy
 from pyserv import pydata
 from pyserv import pyservsup
-#, pycrypt, 
                             
 # -----------------------------------------------------------------------
 # Globals 
@@ -88,7 +88,7 @@ class CliSup:
     # Set encryption key. New key returned. Raises ValuError.
     
     def set_key(self, newkey, oldkey):
-        resp = self.client(self.sock, "ekey " + newkey, oldkey)
+        resp = self.client("ekey " + newkey, oldkey)
         tmp = resp.split()
         if len(tmp) < 2 or tmp[0] != "OK":
             print( "Cannot set new key", resp)
@@ -100,7 +100,7 @@ class CliSup:
     # Make sure you fill in key_val from local key cache.
     
     def set_xkey(self,  newkey, oldkey):
-        resp = self.client(self.sock, "xkey " + newkey, oldkey)
+        resp = self.client("xkey " + newkey, oldkey)
         tmp = resp.split()
         if len(tmp) < 2 or tmp[0] != "OK":
             print( "Cannot set new key", resp)
@@ -121,12 +121,12 @@ class CliSup:
         except:
             print( "Cannot open file", sys.exc_info()[1])
             return
-        resp = client(self.sock, "file " + toname, key)
+        resp = client("file " + toname, key)
         tmp = resp.split()
         if len(tmp) < 2 or tmp[0] != "OK":
             print( "Cannot send file command", resp)
             return 
-        resp = client(self.sock, "data " + str(flen), key)
+        resp = client("data " + str(flen), key)
         tmp = resp.split()
         if len(tmp) < 2 or tmp[0] != "OK":
             print( "Cannot send data command", resp)
@@ -157,7 +157,7 @@ class CliSup:
         except:
             print( "Cannot create local file: '" + toname + "'")
             return
-        response = client(self.sock, "fget " + fname, key)
+        response = client( "fget " + fname, key)
         aaa = response.split(" ")
         if len(aaa) < 2:
             fh.close()
@@ -208,7 +208,7 @@ class CliSup:
         if key != "":
             if rand:
                 message = message + " " * random.randint(0, 20)
-            message = bluepy.bluepy.encrypt(message, key)
+            message = bluepy.bluepy.encrypt(message, key).decode("cp437")
         self.sendx(message)
         if self.verbose and key != "":
             print( "   put: '%s'" % base64.b64encode(message),)
@@ -226,6 +226,7 @@ class CliSup:
         return response
     
 # EOF    
+
 
 
 

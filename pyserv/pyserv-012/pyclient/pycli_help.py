@@ -6,18 +6,53 @@
 import os, sys, getopt, signal, select, socket, time, struct
 import random, stat
 
-import pyserv.pydata, pyserv.pyservsup
+sys.path.append('..')
+from pyserv import pydata, pyservsup
+
+import pycrypt
+import pyclisup
 
 # ------------------------------------------------------------------------
 # Globals 
 
 myhandler = None
 mydathand = None
-
 pgdebug = 0
 verbose = 0
 port    = 9999
 version = 1.0
+
+# ------------------------------------------------------------------------
+# Functions from command line
+
+def phelp():
+
+    print()
+    print( "Usage: " + os.path.basename(sys.argv[0]) + " [options]")
+    print()
+    print( "Options:    -d level  - Debug level 0-10")
+    print( "            -p port   - Port to use (default: 9999)")
+    print( "            -v        - Verbose")
+    print( "            -q        - Quiet")
+    print( "            -h        - Help")
+    print( " Needs debug level or verbose to have any output.")
+    sys.exit(0)
+
+
+def pversion():
+    print( os.path.basename(sys.argv[0]), "Version", version)
+    sys.exit(0)
+
+optarr = \
+    ["d:",  "pgdebug",  0,      None],      \
+    ["p:",  "port",     9999,   None],      \
+    ["v",   "verbose",  0,      None],      \
+    ["q",   "quiet",    0,      None],      \
+    ["t",   "test",     "x",    None],      \
+    ["V",   None,       None,   pversion],  \
+    ["h",   None,       None,   phelp]      \
+
+conf = pyclisup.Config(optarr)
 
 # Send out our special buffer (short)len + (str)message
 
@@ -32,20 +67,20 @@ def sendfile(s1, fname, toname):
         flen = os.stat(fname)[stat.ST_SIZE]
         fh = open(fname)
     except:
-        print "Cannot open file", sys.exc_info()[1]
+        print( "Cannot open file", sys.exc_info()[1])
         return
     
     client(s1, "file " + toname)
     client(s1, "data " + str(flen))
     while 1:
-        buff = fh.read(pyserv.pyservsup.buffsize)
+        buff = fh.read(pyservsup.buffsize)
         if len(buff) == 0:
             break
         sendx(s1, buff)
     response = myhandler.handle_one(mydathand)
     
     if verbose:
-        print "Received: '%s'" % response
+        print( "Received: '%s'" % response)
     
     return response
     
@@ -55,11 +90,11 @@ def client(sock, message):
 
     sendx(sock, message)
     if verbose:
-        print "Sent: '%s'" % message
+        print( "Sent: '%s'" % message)
         
     response = myhandler.handle_one(mydathand)
     if verbose:
-        print "Received: '%s'" % response
+        print( "Received: '%s'" % response)
         
     return response
 
@@ -67,15 +102,15 @@ def client(sock, message):
 
 def help():
 
-    print
-    print "Usage: " + os.path.basename(sys.argv[0]) + " [options]"
-    print
-    print "Options:    -d level  - Debug level 0-10"
-    print "            -p        - Port to use (default: 9999)"
-    print "            -v        - Verbose"
-    print "            -q        - Quiet"
-    print "            -h        - Help"
-    print
+    print()
+    print( "Usage: " + os.path.basename(sys.argv[0]) + " [options]")
+    print()
+    print( "Options:    -d level  - Debug level 0-10")
+    print( "            -p        - Port to use (default: 9999)")
+    print( "            -v        - Verbose")
+    print( "            -q        - Quiet")
+    print( "            -h        - Help")
+    print()
     sys.exit(0)
 
 # ------------------------------------------------------------------------
@@ -85,44 +120,11 @@ if __name__ == '__main__':
     if  sys.version_info[0] < 3:
         print("Needs python 3 or better.")
         sys.exit(1)
-        
-    try:
-        opts, args = getopt.getopt(sys.argv[1:], "d:p:qhvVfp")
-    except getopt.GetoptError, err:
-        print "Invalid option(s) on command line:", err
-        sys.exit(1)
 
-    #print "opts", opts, "args", args
+    args = conf.comline(sys.argv[1:])        
     
-    for aa in opts:
-        if aa[0] == "-d":
-            try:
-                pgdebug = int(aa[1])
-                if verbose:
-                    print "Debug level:", pgdebug
-                if pgdebug > 10 or pgdebug < 0:
-                    raise(ValueError, \
-                        "Debug range needs to be between 0-10")
-            except:
-                pyservsup.put_exception("Command line:")
-                sys.exit(3)
-
-        if aa[0] == "-p": 
-            try:
-                port = int(aa[1])            
-                if verbose:
-                    print "Port:", port
-            except:
-                pyservsup.put_exception("Command line:")
-                sys.exit(3)
-        
-        if aa[0] == "-h": help();  exit(1)
-        if aa[0] == "-v": verbose = True            
-        if aa[0] == "-q": quiet = True            
-        if aa[0] == "-f": force = True            
-        if aa[0] == "-V": 
-            print os.path.basename(sys.argv[0]), "Version", version
-            sys.exit(0)
+    pyclisup.verbose = conf.verbose
+    pyclisup.pgdebug = conf.pgdebug
 
     if len(args) == 0:
         ip = '127.0.0.1' 
@@ -130,26 +132,32 @@ if __name__ == '__main__':
         ip = args[0]
     
     s1 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    mydathand  = pyserv.pydata.xHandler(s1)
-    myhandler  = pyserv.pydata.DataHandler()
+    
+    #mydathand  = pydata.xHandler(s1)
+    #myhandler  = pydata.DataHandler()     
     
     try:
         s1.connect((ip, port))
     except:
-        print "Cannot connect to:", ip + ":" + str(port), sys.exc_info()[1]
+        print( "Cannot connect to:", ip + ":" + str(port), sys.exc_info()[1])
         sys.exit(1)
 
-    client(s1, "user peter")
-    client(s1, "pass 1234")
+    hand = pyclisup.CliSup(s1)
+    hand.verbose = conf.verbose
+    hand.pgdebug = conf.pgdebug
     
-    client(s1, "help")
-    client(s1, "help uadd")
-    client(s1, "help udel")
+    hand.client("user peter")
+    hand.client("pass 1234")
     
-    client(s1, "quit")
+    hand.client("help")
+    hand.client("help uadd")
+    hand.client("help udel")
+    
+    hand.client("quit")
     s1.close();
     
     sys.exit(0)
+
 
 
 

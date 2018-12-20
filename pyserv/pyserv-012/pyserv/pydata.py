@@ -4,7 +4,9 @@ import os, sys, getopt, signal, select, string, time, struct
 import socket, threading, socketserver, traceback, random #, syslog
 
 sys.path.append('..')
-#import bluepy.bluepy
+sys.path.append('../bluepy')
+
+import bluepy.bluepy
 
 # ------------------------------------------------------------------------
 # A more informative exception print 
@@ -139,8 +141,9 @@ class DataHandler():
             if self.tout: self.tout.cancel()
         except:
             put_exception2("Handshake:")
-        if self.pgdebug > 8:
-            print("got data: '" + data + "'")
+            
+        #if self.pgdebug > 8:
+        #    print("got data: '" + data + "'")
                 
         return data #.decode("cp437")
 
@@ -152,6 +155,7 @@ class xHandler():
     def __init__(self, socket):
         self.request = socket
         pass
+
 
 
 

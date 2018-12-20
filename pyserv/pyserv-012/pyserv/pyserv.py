@@ -86,7 +86,7 @@ class ThreadedTCPRequestHandler(socketserver.BaseRequestHandler):
     def finish(self):
         cli = str(mydata[self.name].client_address)
         usr = str(mydata[self.name].user)
-        print( "Logoff '" + usr + "'", cli)
+        #print( "Logoff '" + usr + "'", cli)
         del mydata[self.name]
         if verbose:
             print( "Closed socket on", self.name)
@@ -217,6 +217,7 @@ if __name__ == '__main__':
     server.serve_forever()
 
 # EOF
+
 
 
 
