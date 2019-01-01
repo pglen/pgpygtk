@@ -7,8 +7,9 @@ sys.path.append('..')
 sys.path.append('../bluepy')
 
 import bluepy.bluepy
+
 from pyserv import pydata
-from pyserv import pyservsup
+from common import pyservsup
                             
 # -----------------------------------------------------------------------
 # Globals 
@@ -226,6 +227,7 @@ class CliSup:
         return response
     
 # EOF    
+
 
 
 

@@ -2,12 +2,10 @@
 
 .PHONY: test
 
-
-all:
-	make -C bluepy
-
 test:
-	@make -C pyclient test
+	@./pycli_hello.py -v
+	@./pycli_help.py -v
+
 
 
 

@@ -7,9 +7,7 @@ import os, sys, getopt, signal, select, socket, time, struct
 import random, stat
 
 sys.path.append('..')
-from pyserv import pydata
-from pyserv import pyservsup
-import pycrypt, pyclisup
+from common import support, pycrypt, pyservsup, pyclisup, syslog
 
 # ------------------------------------------------------------------------
 # Globals 
@@ -73,7 +71,8 @@ if __name__ == '__main__':
     hand.pgdebug = conf.pgdebug
     
     hand.client("ver")
-    hand.client("uini peter 1234")
+    ret = hand.client("uini peter 1234")
+    print (ret)
     hand.client("quit")
     
     s1.close();
@@ -81,6 +80,8 @@ if __name__ == '__main__':
     sys.exit(0)
 
 # EOF
+
+
 
 
 

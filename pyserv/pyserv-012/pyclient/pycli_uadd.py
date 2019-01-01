@@ -9,9 +9,8 @@ import random, stat
 sys.path.append('..')
 sys.path.append('../bluepy')
 
-from pyserv import pydata
-from pyserv import pyservsup
-import pycrypt, pyclisup
+sys.path.append('..')
+from common import support, pycrypt, pyservsup, pyclisup, syslog
 
 # ------------------------------------------------------------------------
 # Globals 
@@ -98,6 +97,7 @@ if __name__ == '__main__':
     s1.close();
     
     sys.exit(0)
+
 
 
 

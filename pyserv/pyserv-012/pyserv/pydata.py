@@ -4,41 +4,12 @@ import os, sys, getopt, signal, select, string, time, struct
 import socket, threading, socketserver, traceback, random #, syslog
 
 sys.path.append('..')
-sys.path.append('../bluepy')
 
+sys.path.append('../bluepy')
 import bluepy.bluepy
 
-# ------------------------------------------------------------------------
-# A more informative exception print 
- 
-def put_debug2(xstr):
-    try:
-        if os.isatty(sys.stdout.fileno()):
-            print( xstr)
-        else:
-            syslog.syslog(xstr)
-    except:
-        print( "Failed on debug output.")
-        print( sys.exc_info())
-
-def put_exception2(xstr):
-
-    cumm = xstr + " "
-    a,b,c = sys.exc_info()
-    if a != None:
-        cumm += str(a) + " " + str(b) + "\n"
-        try:
-            #cumm += str(traceback.format_tb(c, 10))
-            ttt = traceback.extract_tb(c)
-            for aa in ttt: 
-                cumm += "File: " + os.path.basename(aa[0]) + \
-                        " Line: " + str(aa[1]) + "\n" +  \
-                    "   Context: " + aa[2] + " -> " + aa[3] + "\n"
-        except:
-            print( "Could not print trace stack. ", sys.exc_info())
-            
-    put_debug2(cumm)    
-    #syslog.syslog("%s %s %s" % (xstr, a, b))
+#sys.path.append('..')
+from common import support, pycrypt, pyservsup, pyclisup, syslog
 
 # Walk thru the server (chunk) state machine 
 # Chunk is our special buffer (short [16 bit])len + (str)message
@@ -88,7 +59,7 @@ class DataHandler():
             #    print ("sending: '", strx ) # + strx.decode("cp437") + "'")
             ret = self.par.request.send(strx)
         except:
-            put_exception2("Put Data:")
+            support.put_exception("Put Data:")
         return ret
           
     def getdata(self, amount):
@@ -140,7 +111,7 @@ class DataHandler():
                         print( "Unkown state")
             if self.tout: self.tout.cancel()
         except:
-            put_exception2("Handshake:")
+            support.put_exception("Handshake:")
             
         #if self.pgdebug > 8:
         #    print("got data: '" + data + "'")
@@ -155,6 +126,9 @@ class xHandler():
     def __init__(self, socket):
         self.request = socket
         pass
+
+
+
 
 
 

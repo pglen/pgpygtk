@@ -7,15 +7,7 @@ import  os, sys, getopt, signal, select, socket, time, struct
 import  random, stat
 
 sys.path.append('..')
-from pyserv import pydata, pyservsup
-
-import pycrypt
-import pyclisup
-
-# ------------------------------------------------------------------------
-# Globals
-
-version = 1.0
+from common import support, pycrypt, pyservsup, pyclisup, syslog
 
 # ------------------------------------------------------------------------
 # Functions from command line
@@ -34,7 +26,7 @@ def phelp():
     sys.exit(0)
 
 def pversion():
-    print( os.path.basename(sys.argv[0]), "Version", version)
+    print( os.path.basename(sys.argv[0]), "Version", support.version)
     sys.exit(0)
  
     # option, var_name, initial_val, function
@@ -83,4 +75,5 @@ if __name__ == '__main__':
 
 
 # EOF
+
 

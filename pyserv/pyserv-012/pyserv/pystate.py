@@ -4,11 +4,9 @@ import os, sys, getopt, signal, select, string, time, stat
 
 sys.path.append('..')
 sys.path.append('../bluepy')
-
-import pycrypt, syslog
 import bluepy.bluepy
 
-import pyservsup
+from common import support, pyservsup, pyclisup, syslog
 
 # Globals
 
@@ -52,7 +50,7 @@ def get_lsd_func(self, strx):
                 sss += pyservsup.escape(aa) + " "
         response = "OK " + sss
     except:
-        #pyservsup.put_exception("lsd")
+        #support.put_exception("lsd")
         response = "ERR " + str(sys.exc_info()[1] )
     self.resp.datahandler.putdata(response, self.resp.ekey)
     
@@ -77,7 +75,7 @@ def get_ls_func(self, strx):
                 
         response = "OK " + sss
     except:
-        pyservsup.put_exception("ls ")
+        support.put_exception("ls ")
         response = "ERR No such directory"
     self.resp.datahandler.putdata(response, self.resp.ekey)
     
@@ -95,7 +93,7 @@ def get_fget_func(self, strx):
         flen = os.stat(dname2)[stat.ST_SIZE]
         fh = open(dname2)
     except:
-        pyservsup.put_exception("cd")
+        support.put_exception("cd")
         response = "ERR Cannot open file '" + dname + "'"
         self.resp.datahandler.putdata(response, self.resp.ekey)
         return
@@ -177,7 +175,7 @@ def get_cd_func(self, strx):
             self.resp.dir = org
             response = "ERR Directory does not exist" 
     except:
-        pyservsup.put_exception("cd")
+        support.put_exception("cd")
         response = "ERR Must specify directory name"
     self.resp.datahandler.putdata(response, self.resp.ekey)
   
@@ -189,7 +187,7 @@ def get_stat_func(self, strx):
             aaa += str(aa) + " "
         response = "OK " + fname + aaa
     except OSError:
-        pyservsup.put_exception("cd")
+        support.put_exception("cd")
         print( sys.exc_info())
         response = "ERR " + str(sys.exc_info()[1] )
     except:
@@ -518,7 +516,7 @@ class StateHandler():
         try:
             self.run_state2(strx)
         except:
-            pyservsup.put_exception("run state:")
+            support.put_exception("run state:")
             #print( sys.exc_info())
             
     def run_state2(self, strx):
@@ -526,8 +524,9 @@ class StateHandler():
         
         # If encrypted, process it
         if self.resp.ekey != "":
-            strx2 = bluepy.bluepy.decrypt(strx, self.resp.ekey)
-            bluepy.bluepy.destroy(strx)
+            ddd  = strx.encode("cp437")
+            strx2 = bluepy.bluepy.decrypt(ddd, self.resp.ekey)
+            bluepy.bluepy.destroy(ddd)
             strx = strx2
             
         comx = strx.split()
@@ -563,3 +562,6 @@ class StateHandler():
         return ret          
     
 # EOF
+
+
+

@@ -7,10 +7,7 @@ import os, sys, getopt, signal, select, socket, time, struct
 import random, stat
 
 sys.path.append('..')
-from pyserv import pydata, pyservsup
-
-import pycrypt
-import pyclisup
+from common import support, pycrypt, pyservsup, pyclisup, syslog
 
 # ------------------------------------------------------------------------
 # Globals 
@@ -157,6 +154,8 @@ if __name__ == '__main__':
     s1.close();
     
     sys.exit(0)
+
+
 
 
 

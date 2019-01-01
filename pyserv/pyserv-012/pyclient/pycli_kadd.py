@@ -7,15 +7,10 @@ import os, sys, getopt, signal, select, socket, time, struct
 import random, stat
 
 sys.path.append('..')
-
-from pyserv import pydata
-from pyserv import pyservsup
-import pycrypt, pyclisup
+from common import support, pycrypt, pyservsup, pyclisup, syslog
 
 # ------------------------------------------------------------------------
 # Globals 
-
-version = 1.0
 
 def phelp():
 
@@ -31,7 +26,7 @@ def phelp():
     sys.exit(0)
 
 def pversion():
-    print( os.path.basename(sys.argv[0]), "Version", version)
+    print( os.path.basename(sys.argv[0]), "Version", support.version)
     sys.exit(0)
     
     # option, var_name, initial_val, function
@@ -83,29 +78,13 @@ if __name__ == '__main__':
     hand.client("kadd k2 1234")
 
     xkey = "1234"
-    hand.set_xkey("k2", "")
-    
+    resp = hand.set_xkey("k2", "")
+    print (resp)
     hand.client("ver", xkey)
     hand.client("quit", xkey)
     s1.close();
     
     sys.exit(0)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# EOF
 

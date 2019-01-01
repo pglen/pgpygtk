@@ -4,10 +4,11 @@ import os, sys, getopt, signal, select, string, time
 import tarfile, subprocess, struct 
 import socket, threading, socketserver #, traceback 
 
+import pystate, pydata
+
 sys.path.append('..')
-import syslog
-import pystate, pydata, pyservsup
-    
+from common import support, pyservsup, pyclisup, syslog
+
 # Globals
 verbose = False  
 quiet  = False  
@@ -16,30 +17,6 @@ pgdebug = 0
 mydata = {}
 server = None
 datadir = ".pyserv"
-
-class Unbuffered(object):
-   def __init__(self, stream):
-       self.stream = stream
-       
-   def write(self, data):
-       self.stream.write(data)
-       self.stream.flush()
-       
-   def writelines(self, datas):
-       self.stream.writelines(datas)
-       self.stream.flush()
-       
-   def __getattr__(self, attr):
-       return getattr(self.stream, attr)
-
-def put_debug(xstr):
-    try:
-        if os.isatty(sys.stdout.fileno()):
-            print( xstr)
-        syslog.syslog(xstr)
-    except:
-        print( "Failed on debug output.")
-        print( sys.exc_info())
 
 # ------------------------------------------------------------------------
 
@@ -81,7 +58,7 @@ class ThreadedTCPRequestHandler(socketserver.BaseRequestHandler):
                 if ret2: break
         except:
             #print( sys.exc_info())
-            pyservsup.put_exception("state handler")
+            support.put_exception("state handler")
         
     def finish(self):
         cli = str(mydata[self.name].client_address)
@@ -140,8 +117,8 @@ if __name__ == '__main__':
 
     opts = []; args = []
 
-    sys.stdout = Unbuffered(sys.stdout)
-    sys.stderr = Unbuffered(sys.stderr)
+    sys.stdout = support.Unbuffered(sys.stdout)
+    sys.stderr = support.Unbuffered(sys.stderr)
 
     syslog.openlog("pyserv.py")
     
@@ -170,7 +147,7 @@ if __name__ == '__main__':
                     raise(Exception(ValueError, \
                         "Debug range needs to be between 0-10"))
             except:
-                pyservsup.put_exception("Command line for:")
+                support.put_exception("Command line for:")
                 sys.exit(3)
 
         if aa[0] == "-h": help();  exit(1)
@@ -217,6 +194,9 @@ if __name__ == '__main__':
     server.serve_forever()
 
 # EOF
+
+
+
 
 
 
